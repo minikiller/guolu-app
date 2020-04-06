@@ -1,5 +1,7 @@
-import http_req as req
+#!/usr/bin/env python
+# -*- coding:utf-8 -*-
 
+import http_req as req
 
 
 class Data:
@@ -23,4 +25,3 @@ class Data:
 
     def post(self, index):
         req.post_data(Data.token.get(index), self)
-

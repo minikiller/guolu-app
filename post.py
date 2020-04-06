@@ -1,94 +1,91 @@
-# This Program illustrates the Simple Server Side RPC on ThingsBoard IoT Platform
+# This Program illustrates the Server Side RPC on ThingsBoard IoT Platform
 # Paste your ThingsBoard IoT Platform IP and Device access token
-# RPC Server_Side_RPC.py : This Program will illustrates the Server side RPC
+# Temperature_Controller_Server_Side_RPC.py : This program illustrates Server side RPC using a Simulated Temperature Controller
 import os
 import time
 import sys
 import json
 import random
 import paho.mqtt.client as mqtt
+from threading import Thread, local 
+from param import Param
+import threading
 
 # Thingsboard platform credentials
-# Default topics. See http://thingsboard.io/docs/reference/mqtt-api/ for more details.
+THINGSBOARD_HOST = '106.12.216.163'  # Change IP Address
+
 attributesTopic = 'v1/devices/me/attributes'
-telemetryTopic = 'v1/devices/me/telemetry'
-attributesRequestTopic = 'v1/devices/me/attributes/request/1'
-attributesResponseTopic = attributesRequestTopic.replace('request', 'response')
+device = local()
+global_store={}
 
-THINGSBOARD_HOST = '106.12.216.163'
+# MQTT on_connect callback function
+socketCon = None   # socket connection
+
+# class Device:
+#     def __init__(self, token):
+#         self._token = token
 
 
-class MqttClent():
-    def __init__(self, token):
-        self._token = token
+def on_connect(client, userdata, flags, rc):
+    #print("rc code:", rc)
+    # client.subscribe('v1/devices/me/rpc/request/+')
+    client.subscribe(attributesTopic)
 
-    # def setValue (params):
-    #     button_state['enabled'] = params
-    #     print("Rx setValue is : ",button_state)
+# MQTT on_message callback function
+""" 
 
-    # MQTT on_connect callback function
-    # def on_connect(self, client, userdata, flags, rc):
-    #     print("rc code:", rc)
-    #     client.subscribe('v1/devices/me/rpc/request/+')
+"""
 
-    def on_publish(self, data):
-        print("will publish {}".format(data))
-        print("will publish {}".format(json.dumps(data)))
+def on_message(client, userdata, msg):
 
-        self._client.publish(telemetryTopic, json.dumps(data), 1)
+    if msg.topic.startswith(attributesTopic):
+        value = json.loads(msg.payload)
+        cur_thread = threading.current_thread()
+        token=global_store.get(id(cur_thread))
+        data = Param.getInstance(token, **value)
+        print("prepare to send {}".format(data))
+        # link.sendall(str(test).encode())
+        socketCon.sendall(str(data).encode())
 
-    # MQTT on_message caallback function
-    # def on_message(client, userdata, msg):
-    #     print('Topic: ' + msg.topic + '\nMessage: ' + str(msg.payload))
-    #     if msg.topic.startswith('v1/devices/me/rpc/request/'):
-    #         requestId = msg.topic[len(
-    #             'v1/devices/me/rpc/request/'):len(msg.topic)]
-    #         print("requestId : ", requestId)
-    #         data = json.loads(msg.payload)
-    #         if data['method'] == 'getValue':
-    #             print("getvalue request\n")
-    #             print("sent getValue : ", button_state)
-    #             client.publish('v1/devices/me/rpc/response/' +
-    #                            requestId, json.dumps(button_state), 1)
-    #         if data['method'] == 'setValue':
-    #             print("setvalue request\n")
-    #             params = data['params']
-    #             setValue(params)
-    #             client.publish('v1/devices/me/attributes',
-    #                            json.dumps(button_state), 1)
 
-    def on_connect(self):
-        # start the client instance
-        client = mqtt.Client()
+def setup_conn(socket_con, token):
+    # create a client instance
+    cur_thread = threading.current_thread()
+    global socketCon,global_store
+    global_store[id(cur_thread)]=token
+    print(id(socket_con))
+    # global device
+    device.cur_token = token
+    socketCon = socket_con
+    print(id(socketCon))
 
-        # registering the callbacks
-        # client.on_connect = on_connect
-        # client.on_message = on_message
+    client = mqtt.Client()
+    client.on_connect = on_connect
+    client.on_message = on_message
+    client.username_pw_set(token)
+    print("mqtt will be connect to {}".format(THINGSBOARD_HOST))
+    print("token will be used {}".format(token))
 
-        client.username_pw_set(self._token)
-        client.connect(THINGSBOARD_HOST, 1883, 60)
-        self._client = client
+    client.connect(THINGSBOARD_HOST, 1883, 60)
 
-        # try:
-        #     client.loop_forever()
+    # t = Thread(target=publishValue, args=(client,))
 
-        # except KeyboardInterrupt:
-        #     client.disconnect()
+    try:
+        client.loop_forever()
+        # t.start()
+        while True:
+            pass
+
+    except KeyboardInterrupt:
+        client.disconnect()
 
 
 def main():
-    # device = MqttClent("cC6jiZZioal0lkAXjIpE")  # KSBZDe7MrWU3lLgRIAjH
-    data = {'temperature': 35, "helo": "first"}
-    client = mqtt.Client()
-
-        # registering the callbacks
-        # client.on_connect = on_connect
-        # client.on_message = on_message
-
-    client.username_pw_set("cC6jiZZioal0lkAXjIpE")
-    client.connect(THINGSBOARD_HOST, 1883, 60)
-    client.publish(telemetryTopic, json.dumps(data), 1)
-
+    try:
+        k = Thread(target=setup_conn, args=("conn",))
+        k.start()
+    except:
+        print("unable to run")
 
 
 if __name__ == "__main__":
