@@ -2,8 +2,9 @@
 初始化shared属性，通过调用token
 """
 import requests,json
+from config import HOST_IP
 
-HOST_IP = "http://106.12.216.163:8080/"
+
 AUTH_ADDRESS = HOST_IP + "api/auth/login"
 
 DEVICE_ID = "2c53adf0-7797-11ea-aa25-ad673d3fddf6"

@@ -14,7 +14,6 @@ import threading        # 导入线程模块
 
 
 def link_handler(link, client):
-
     """
     该函数为线程需要执行的函数，负责具体的服务器和客户端之间的通信工作
     :param link: 当前线程处理的连接
@@ -43,8 +42,6 @@ def link_handler(link, client):
 
 
 def parse_data(client):  # return code,begin with : and spilt with #
-    """[summary]
-    """
     print(client)
     value = client.split("#")
     print("serial is {}".format(value[0]))
@@ -52,11 +49,6 @@ def parse_data(client):  # return code,begin with : and spilt with #
 
 
 def change_param(link):
-    """[summary]
-    
-    Arguments:
-        link {[type]} -- [description]
-    """
     test = Param(0, "Interval", 15)
     print("prepare to send {}".format(test))
     link.sendall(str(test).encode())
@@ -75,10 +67,21 @@ def post_data(link, client_data):
         # print(data.__dict__)
     link.sendall('ok'.encode())
 
+
 def run_mqtt(conn):
+
+    """ create mqtt client listen for parameter change message
+    :type conn:
+    :param conn:
+
+    :raises:
+
+    :rtype:
+    """
     thread_list = []
     for key in config.TOKEN_KEYS:
-        k = threading.Thread(target=post.setup_conn, args=(conn,config.TOKEN_KEYS[key]))
+        k = threading.Thread(target=post.setup_conn,
+                             args=(conn, config.TOKEN_KEYS[key]))
         thread_list.append(k)
     for t in thread_list:
         t.setDaemon(True)
@@ -86,6 +89,7 @@ def run_mqtt(conn):
 
     for t in thread_list:
         t.join()
+
 
 ip_port = ('0.0.0.0', 9999)
 sk = socket.socket()            # 创建套接字
@@ -102,4 +106,3 @@ while True:     # 一个死循环，不断的接受客户端发来的连接请�
     t = threading.Thread(target=link_handler, args=(conn, address))
     t.start()
     run_mqtt(conn)
-

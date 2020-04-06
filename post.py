@@ -7,16 +7,17 @@ import sys
 import json
 import random
 import paho.mqtt.client as mqtt
-from threading import Thread, local 
+from threading import Thread, local
 from param import Param
 import threading
+from config import THINGSBOARD_HOST
 
 # Thingsboard platform credentials
-THINGSBOARD_HOST = '106.12.216.163'  # Change IP Address
+# THINGSBOARD_HOST = '106.12.216.163'  # Change IP Address
 
 attributesTopic = 'v1/devices/me/attributes'
 device = local()
-global_store={}
+global_store = {}
 
 # MQTT on_connect callback function
 socketCon = None   # socket connection
@@ -31,17 +32,13 @@ def on_connect(client, userdata, flags, rc):
     # client.subscribe('v1/devices/me/rpc/request/+')
     client.subscribe(attributesTopic)
 
-# MQTT on_message callback function
-""" 
-
-"""
 
 def on_message(client, userdata, msg):
 
     if msg.topic.startswith(attributesTopic):
         value = json.loads(msg.payload)
         cur_thread = threading.current_thread()
-        token=global_store.get(id(cur_thread))
+        token = global_store.get(id(cur_thread))
         data = Param.getInstance(token, **value)
         print("prepare to send {}".format(data))
         # link.sendall(str(test).encode())
@@ -51,13 +48,12 @@ def on_message(client, userdata, msg):
 def setup_conn(socket_con, token):
     # create a client instance
     cur_thread = threading.current_thread()
-    global socketCon,global_store
-    global_store[id(cur_thread)]=token
+    global socketCon, global_store
+    global_store[id(cur_thread)] = token
     print(id(socket_con))
     # global device
     device.cur_token = token
     socketCon = socket_con
-    print(id(socketCon))
 
     client = mqtt.Client()
     client.on_connect = on_connect

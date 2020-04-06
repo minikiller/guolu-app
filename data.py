@@ -2,13 +2,9 @@
 # -*- coding:utf-8 -*-
 
 import http_req as req
-
+from config import TOKEN_KEYS
 
 class Data:
-    token = {0: "9Lqw5CLDl7aAwApTf0ml",
-             1: "3p9za71mK8IDCFtnDbQR",
-             2: "U8xoyQCM62XM3qQKtCH3",
-             3: "1PJWAwwBe69uVItx4i1p"}
 
     def __init__(self, value):
         # self.type = value[0]  # type
@@ -24,4 +20,4 @@ class Data:
         self.Deltp_WG = value[8]  # 文管差压
 
     def post(self, index):
-        req.post_data(Data.token.get(index), self)
+        req.post_data(TOKEN_KEYS.get(index), self)

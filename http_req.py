@@ -1,10 +1,9 @@
 import requests
 import json
 from json import JSONEncoder
+from config import HOST_IP
 
-ip = "106.12.216.163"
-host = "http://{}:8080/".format(ip)
-url = host + "api/v1/{}/telemetry"
+url = HOST_IP + "api/v1/{}/telemetry"
 
 headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
 

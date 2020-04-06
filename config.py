@@ -1,3 +1,6 @@
+THINGSBOARD_HOST = '106.12.216.163' 
+HOST_IP = "http://{}:8080/".format(THINGSBOARD_HOST)
+
 device_A1 = "39gYWBel4bIyX0aJpyRJ"
 device_A2 = "euA3H8RrGDjt6a1yPt8M"
 # device_A3 = "euA3H8RrGDjt6a1yPt12"
