@@ -21,24 +21,33 @@ def link_handler(link, client):
     :return: None
     """
     print("服务器开始接收来自[%s:%s]的请求...." % (client[0], client[1]))
-    while True:     # 利用一个死循环，保持和客户端的通信状态
-        client_data = link.recv(1024).decode()
-        if client_data == "exit":
-            print("结束与[%s:%s]的通信..." % (client[0], client[1]))
-            break
-        elif client_data == "Polling":
-            # link.sendall('NOP'.encode())
-            change_param(link)
-        elif ":" in client_data:
-            parse_data(client_data)
-        elif "#" in client_data:
-            post_data(link, client_data)
-        else:
-            pass
-        # :
-        #     print("来自[%s:%s]的客户端向你发来信息：%s" %
-        #           (client[0], client[1], client_data))
-    link.close()
+    try:
+    
+        while True:     # 利用一个死循环，保持和客户端的通信状态
+            client_data = link.recv(1024).decode()
+            if client_data == "exit":
+                print("结束与[%s:%s]的通信..." % (client[0], client[1]))
+                break
+            elif client_data == "Polling":
+                link.sendall('NOP'.encode())
+                # change_param(link)
+            elif client_data == "Param":
+                run_mqtt(conn)
+                # pass
+                # change_param(link)                
+            elif ":" in client_data:
+                parse_data(client_data)
+            elif "#" in client_data:
+                post_data(link, client_data)
+            else:
+                pass
+            # :
+            #     print("来自[%s:%s]的客户端向你发来信息：%s" %
+            #           (client[0], client[1], client_data))
+    except ConnectionResetError:
+        print("connection is closed {}".format(client[0]))
+        link.close()
+    
 
 
 def parse_data(client):  # return code,begin with : and spilt with #
@@ -102,7 +111,7 @@ while True:     # 一个死循环，不断的接受客户端发来的连接请�
     conn, address = sk.accept()  # 等待连接，此处自动阻塞
     # 每当有新的连接过来，自动创建一个新的线程，
     # 并将连接对象和访问者的ip信息作为参数传递给线程的执行函数
-    print(id(conn))
     t = threading.Thread(target=link_handler, args=(conn, address))
     t.start()
-    run_mqtt(conn)
+    # run_mqtt(conn)
+    # run_mqtt(conn)
