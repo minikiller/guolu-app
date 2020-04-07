@@ -1,7 +1,6 @@
+#!/usr/bin/env python3
 """test for socket client for change parameter
 """
-
-#!/usr/bin/env python3
 
 import socket
 import time

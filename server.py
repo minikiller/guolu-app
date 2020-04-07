@@ -32,7 +32,7 @@ def link_handler(link, client):
                 link.sendall('NOP'.encode())
                 # change_param(link)
             elif client_data == "Param":
-                run_mqtt(conn)
+                run_mqtt(link)
                 # pass
                 # change_param(link)                
             elif ":" in client_data:
