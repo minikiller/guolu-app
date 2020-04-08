@@ -5,7 +5,7 @@ import socket
 import threading  # 导入线程模块
 import redis_get as _redis
 import config
-import post
+
 
 thread_list = []
 
