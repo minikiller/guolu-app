@@ -5,12 +5,17 @@ import socket
 import threading  # 导入线程模块
 import redis_get as _redis
 import config
+import redis
+
 
 
 thread_list = []
 
-
-
+def publish_to_redis(link, client_data):
+    redis_conn = redis.StrictRedis(host='localhost', port=6379, db=0)
+    with redis_conn:
+        redis_conn.publish("kalix", client_data)
+    link.sendall(b'ok')
 
 
 def link_handler(link, client):
@@ -34,6 +39,8 @@ def link_handler(link, client):
                 print("new connection taken,current conn id  is {}".format(id(link)))
                 t = threading.Thread(target=_redis.sub_msg, args=(link,))
                 t.start()
+            elif "#" in client_data:
+                publish_to_redis(link, client_data)
 
             print("来自[%s:%s]的客户端向你发来信息：%s" %
                   (client[0], client[1], client_data))

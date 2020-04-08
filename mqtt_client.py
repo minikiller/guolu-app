@@ -10,36 +10,23 @@ import paho.mqtt.client as mqtt
 from threading import Thread, local
 from param import Param
 import threading
-from config import THINGSBOARD_HOST
+from config import THINGSBOARD_HOST, TOKEN_KEYS, DataEncoder
 import config
 import redis
+from data import Data
 
 # Thingsboard platform credentials
 # THINGSBOARD_HOST = '106.12.216.163'  # Change IP Address
 
 attributesTopic = 'v1/devices/me/attributes'
+telemetryTopic = 'v1/devices/me/telemetry'
 device = local()
-global_store = {}
-thread_list =[]
-_redis = redis.StrictRedis(host='localhost', port=6379, db=0)
-
-
-# MQTT on_connect callback function
-# socketCon = None   # socket connection
-
-# class Device:
-#     def __init__(self, token):
-#         self._token = token
+mqtt_client = {}
+thread_list = []
 
 
 def on_connect(client, userdata, flags, rc):
-    #print("rc code:", rc)
-    # client.subscribe('v1/devices/me/rpc/request/+')
     client.subscribe(attributesTopic)
-
-# def change_conn(link):
-#     global socketCon
-#     socketCon=link
 
 
 def on_message(client, userdata, msg):
@@ -50,22 +37,11 @@ def on_message(client, userdata, msg):
         token = device._token
         data = Param.getInstance(token, **value)
         print("prepare to send {}".format(data))
-        # link.sendall(str(test).encode())
         _redis.publish("guolu", str(data))
-        # socketCon.sendall(.encode())
-        # data = socketCon.recv(1024)
-        # print("receive data is "+data.decode())
 
 
 def setup_conn(token):
-    # create a client instance
-    # cur_thread = threading.current_thread()
-    # global global_store
-    # global_store[id(cur_thread)] = token
-    # print(id(socket_con))
-    # global device
     device._token = token
-    # socketCon = socket_con
 
     client = mqtt.Client()
     client.on_connect = on_connect
@@ -75,8 +51,7 @@ def setup_conn(token):
     print("token will be used {}".format(token))
 
     client.connect(THINGSBOARD_HOST, 1883, 60)
-
-    # t = Thread(target=publishValue, args=(client,))
+    mqtt_client[token] = client
 
     try:
         # client.loop_start()
@@ -91,6 +66,7 @@ def setup_conn(token):
     except KeyboardInterrupt:
         client.disconnect()
 
+
 def run_mqtt():
     for key in config.TOKEN_KEYS:
         k = threading.Thread(target=setup_conn,
@@ -104,10 +80,46 @@ def run_mqtt():
     for t in thread_list:
         t.join()
 
+
+def publish_mqtt(data):
+    """publish data to mqtt
+
+    Arguments:
+        data {[type]} -- [description]
+    """
+    groups = data.split("#")
+    for index, group in enumerate(groups):
+        print("info of group {}".format(group))
+        values = [float(x) for x in group.split(",")]
+        data = Data(values)
+        token = TOKEN_KEYS.get(index)
+        client = mqtt_client.get(token)
+        p_data = json.dumps(data, indent=4, cls=DataEncoder)
+        client.publish(telemetryTopic, p_data, 1)
+
+
+def sub_redis():
+    """[summary]
+    """
+    _redis = redis.StrictRedis(host='localhost', port=6379, db=0)
+    with _redis:
+        p = _redis.pubsub(ignore_subscribe_messages=True)
+        with p:
+            p.subscribe('kalix')
+            while True:
+                msg = p.get_message()
+                if msg:
+                    print("get subscribe from redis, value is {}".format(
+                        msg['data']))
+                    publish_mqtt(msg['data'])
+                time.sleep(0.001)
+
+
 def main():
     try:
         if len(thread_list) == 0:
             run_mqtt()
+        sub_redis()
     except:
         print("unable to run")
 

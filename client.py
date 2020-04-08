@@ -3,8 +3,8 @@
 import socket
 import time
 
-HOST = '192.168.1.34' 
-PORT = 9999      
+HOST = 'localhost' 
+PORT = 9998      
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.connect((HOST, PORT))

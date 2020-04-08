@@ -1,4 +1,6 @@
-THINGSBOARD_HOST = '106.12.216.163' 
+from json import JSONEncoder
+
+THINGSBOARD_HOST = '106.12.216.163'
 HOST_IP = "http://{}:8080/".format(THINGSBOARD_HOST)
 
 device_A1 = "9Lqw5CLDl7aAwApTf0ml"
@@ -23,3 +25,8 @@ TOKEN_ITEMS = {
     device_A3: 3,
     device_A4: 4
 }
+
+
+class DataEncoder(JSONEncoder):
+    def default(self, o):
+        return o.__dict__

@@ -80,13 +80,9 @@ def post_data(link, client_data):
     groups = client_data.split("#")
     for index, group in enumerate(groups):
         print("info of group {}".format(group))
-    # if values[0] == "data":
-
         values = [float(x) for x in group.split(",")]
         data = Data(values)
-        # print(data.__dict__)
         data.post(index)
-        # print(data.__dict__)
     link.sendall('ok'.encode())
 
 def run_mqtt_loop(conn):

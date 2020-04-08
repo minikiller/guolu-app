@@ -1,7 +1,7 @@
 import requests
 import json
-from json import JSONEncoder
-from config import HOST_IP
+
+from config import HOST_IP,DataEncoder
 
 url = HOST_IP + "api/v1/{}/telemetry"
 
@@ -20,9 +20,7 @@ def post_data(token, data):
 # subclass JSONEncoder
 
 
-class DataEncoder(JSONEncoder):
-    def default(self, o):
-        return o.__dict__
+
 
 
 def main():
