@@ -45,8 +45,7 @@ def on_message(client, userdata, msg):
         data = Param.getInstance(token, **value)
         print("prepare to send {}".format(data))
         # link.sendall(str(test).encode())
-        if socketCon._closed:
-            raise SystemError("no connection is actived")
+        
         socketCon.sendall(str(data).encode())
         data = socketCon.recv(1024)
         print("receive data is "+data.decode())
@@ -78,8 +77,10 @@ def setup_conn(socket_con, token):
         client.loop_forever()
 
         # t.start()
-        # while True:
-        #     pass
+        while True:
+            if socketCon._closed:
+                raise SystemError("no connection is actived")
+            pass
 
     except KeyboardInterrupt:
         client.disconnect()

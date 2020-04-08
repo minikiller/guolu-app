@@ -6,7 +6,7 @@ import threading  # 导入线程模块
 import redis_get as _redis
 
 
-def link_handler(link, client):     
+def link_handler(link, client):
     """
     该函数为线程需要执行的函数，负责具体的服务器和客户端之间的通信工作
     :param link: 当前线程处理的连接
@@ -20,17 +20,17 @@ def link_handler(link, client):
             if not data:
                 break
             else:
-                client_data=data.decode()
+                client_data = data.decode()
             if client_data == "exit":
                 print("结束与[%s:%s]的通信..." % (client[0], client[1]))
                 break
             elif client_data == "sub":
-                
                 print("new connection taken,current conn id  is {}".format(id(link)))
                 t = threading.Thread(target=_redis.sub_msg, args=(link,))
-                t.start() 
+                t.start()
 
-            print("来自[%s:%s]的客户端向你发来信息：%s" % (client[0], client[1], client_data))
+            print("来自[%s:%s]的客户端向你发来信息：%s" %
+                  (client[0], client[1], client_data))
             link.sendall('服务器已经收到你的信息'.encode())
     # link.close()
 
@@ -46,6 +46,6 @@ while True:     # 一个死循环，不断的接受客户端发来的连接请�
     conn, address = sk.accept()  # 等待连接，此处自动阻塞
     # 每当有新的连接过来，自动创建一个新的线程，
     # 并将连接对象和访问者的ip信息作为参数传递给线程的执行函数
-    
+
     t = threading.Thread(target=link_handler, args=(conn, address))
     t.start()
