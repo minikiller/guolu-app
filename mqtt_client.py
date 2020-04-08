@@ -11,6 +11,8 @@ from threading import Thread, local
 from param import Param
 import threading
 from config import THINGSBOARD_HOST
+import config
+import redis
 
 # Thingsboard platform credentials
 # THINGSBOARD_HOST = '106.12.216.163'  # Change IP Address
@@ -18,9 +20,12 @@ from config import THINGSBOARD_HOST
 attributesTopic = 'v1/devices/me/attributes'
 device = local()
 global_store = {}
+thread_list =[]
+_redis = redis.StrictRedis(host='localhost', port=6379, db=0)
+
 
 # MQTT on_connect callback function
-socketCon = None   # socket connection
+# socketCon = None   # socket connection
 
 # class Device:
 #     def __init__(self, token):
@@ -32,34 +37,35 @@ def on_connect(client, userdata, flags, rc):
     # client.subscribe('v1/devices/me/rpc/request/+')
     client.subscribe(attributesTopic)
 
-def change_conn(link):
-    global socketCon
-    socketCon=link
+# def change_conn(link):
+#     global socketCon
+#     socketCon=link
+
 
 def on_message(client, userdata, msg):
 
     if msg.topic.startswith(attributesTopic):
         value = json.loads(msg.payload)
-        cur_thread = threading.current_thread()
-        token = global_store.get(id(cur_thread))
+        # cur_thread = threading.current_thread()
+        token = device._token
         data = Param.getInstance(token, **value)
         print("prepare to send {}".format(data))
         # link.sendall(str(test).encode())
-        
-        socketCon.sendall(str(data).encode())
-        data = socketCon.recv(1024)
-        print("receive data is "+data.decode())
+        _redis.publish("guolu", str(data))
+        # socketCon.sendall(.encode())
+        # data = socketCon.recv(1024)
+        # print("receive data is "+data.decode())
 
 
-def setup_conn(socket_con, token):
+def setup_conn(token):
     # create a client instance
-    cur_thread = threading.current_thread()
-    global socketCon, global_store
-    global_store[id(cur_thread)] = token
-    print(id(socket_con))
+    # cur_thread = threading.current_thread()
+    # global global_store
+    # global_store[id(cur_thread)] = token
+    # print(id(socket_con))
     # global device
-    device.cur_token = token
-    socketCon = socket_con
+    device._token = token
+    # socketCon = socket_con
 
     client = mqtt.Client()
     client.on_connect = on_connect
@@ -77,19 +83,31 @@ def setup_conn(socket_con, token):
         client.loop_forever()
 
         # t.start()
-        while True:
-            if socketCon._closed:
-                raise SystemError("no connection is actived")
-            pass
+        # while True:
+        #     # if socketCon._closed:
+        #     #     raise SystemError("no connection is actived")
+        #     pass
 
     except KeyboardInterrupt:
         client.disconnect()
 
+def run_mqtt():
+    for key in config.TOKEN_KEYS:
+        k = threading.Thread(target=setup_conn,
+                             args=(config.TOKEN_KEYS[key],))
+        thread_list.append(k)
+
+    for t in thread_list:
+        t.setDaemon(True)
+        t.start()
+
+    for t in thread_list:
+        t.join()
 
 def main():
     try:
-        k = Thread(target=setup_conn, args=("conn",))
-        k.start()
+        if len(thread_list) == 0:
+            run_mqtt()
     except:
         print("unable to run")
 

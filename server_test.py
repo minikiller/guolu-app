@@ -4,6 +4,13 @@
 import socket
 import threading  # 导入线程模块
 import redis_get as _redis
+import config
+import post
+
+thread_list = []
+
+
+
 
 
 def link_handler(link, client):
@@ -19,12 +26,11 @@ def link_handler(link, client):
             data = link.recv(1024)
             if not data:
                 break
-            else:
-                client_data = data.decode()
+            client_data = data.decode()
             if client_data == "exit":
                 print("结束与[%s:%s]的通信..." % (client[0], client[1]))
                 break
-            elif client_data == "sub":
+            elif client_data == "Param":
                 print("new connection taken,current conn id  is {}".format(id(link)))
                 t = threading.Thread(target=_redis.sub_msg, args=(link,))
                 t.start()
@@ -35,10 +41,12 @@ def link_handler(link, client):
     # link.close()
 
 
-ip_port = ('127.0.0.1', 9999)
+ip_port = ('127.0.0.1', 9998)
 sk = socket.socket()            # 创建套接字
 sk.bind(ip_port)                # 绑定服务地址
-sk.listen(5)                    # 监听连接请求
+sk.listen(5)  # 监听连接请求
+
+
 
 print('启动socket服务，等待客户端连接...')
 
@@ -49,3 +57,4 @@ while True:     # 一个死循环，不断的接受客户端发来的连接请�
 
     t = threading.Thread(target=link_handler, args=(conn, address))
     t.start()
+    

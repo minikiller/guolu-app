@@ -41,8 +41,8 @@ def link_handler(link, client):
                 elif client_data == "Param":
                     if len(thread_list) == 0:
                         run_mqtt(link)
-                    else:
-                        post.change_conn(link)
+                    # else:
+                    #     post.change_conn(link)
                     # pass
                     # change_param(link)
                 elif ":" in client_data:
@@ -91,7 +91,7 @@ def post_data(link, client_data):
 
 def run_mqtt_loop(conn):
     for key in config.TOKEN_KEYS:
-        post.setup_conn(conn, config.TOKEN_KEYS[key])
+        post.setup_conn(config.TOKEN_KEYS[key])
 
 def run_mqtt(conn):
     """ create mqtt client listen for parameter change message

@@ -15,13 +15,13 @@ def sub_msg(link=None):
         # r.set('foo', 'bar')
         p = r.pubsub(ignore_subscribe_messages=True)
         with p:
-            p.subscribe('sunlf')
+            p.subscribe('guolu')
             while True:
-                getmsg = p.get_message()
-                if getmsg:
-                    print(getmsg['data'])
-                    print("current conn id is {}".format(id(link)))
-                    link.sendall(getmsg['data'])
+                msg = p.get_message()
+                if msg:
+                    print("get subscribe from redis, value is {}".format(msg['data']))
+                    # print("current conn id is {}".format(id(link)))
+                    link.sendall(msg['data'])
                 if link._closed:
                     break
                 time.sleep(0.001)
