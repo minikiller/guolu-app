@@ -5,7 +5,7 @@
 import socket
 import time
 
-HOST = '192.168.1.34' 
+HOST = 'localhost' 
 PORT = 9999      
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -16,9 +16,19 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     print("client is begining ")
     
     while True:
-        print("begin to waitting")
-        # s.sendall(send_data)
-        data = s.recv(1024)
-        print('Received', repr(data))
+        try:
+            print("begin to waitting")
+            # s.sendall(send_data)
+            data = s.recv(1024)
+            if not data:
+                break
+            if "####" in data.decode():
+                print("get it")
+                s.sendall(b":291f2218-78cd-11ea-8a09-34e6d76a8659#Done")
+            print('Received', repr(data))
+        except KeyboardInterrupt:
+            s.close()
+            print('Keyboard Interrupt')
+            break            
 
 # print('Received', repr(data))

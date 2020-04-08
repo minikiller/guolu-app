@@ -32,6 +32,9 @@ def on_connect(client, userdata, flags, rc):
     # client.subscribe('v1/devices/me/rpc/request/+')
     client.subscribe(attributesTopic)
 
+def change_conn(link):
+    global socketCon
+    socketCon=link
 
 def on_message(client, userdata, msg):
 
@@ -42,7 +45,11 @@ def on_message(client, userdata, msg):
         data = Param.getInstance(token, **value)
         print("prepare to send {}".format(data))
         # link.sendall(str(test).encode())
+        if socketCon._closed:
+            raise SystemError("no connection is actived")
         socketCon.sendall(str(data).encode())
+        data = socketCon.recv(1024)
+        print("receive data is "+data.decode())
 
 
 def setup_conn(socket_con, token):
@@ -67,10 +74,12 @@ def setup_conn(socket_con, token):
     # t = Thread(target=publishValue, args=(client,))
 
     try:
+        # client.loop_start()
         client.loop_forever()
+
         # t.start()
-        while True:
-            pass
+        # while True:
+        #     pass
 
     except KeyboardInterrupt:
         client.disconnect()
