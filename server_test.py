@@ -6,18 +6,18 @@ import threading  # 导入线程模块
 import redis_get as _redis
 import config
 import redis
-import multiprocessing   
+import multiprocessing
 import mqtt_client
 
 
-
 thread_list = []
+mqtt_thread = None
+
 
 def publish_to_redis(link, client_data):
     redis_conn = redis.StrictRedis(host='localhost', port=6379, db=0)
     with redis_conn:
         redis_conn.publish("kalix", client_data)
-    link.sendall(b'ok')
 
 
 def link_handler(link, client):
@@ -37,17 +37,30 @@ def link_handler(link, client):
             if client_data == "exit":
                 print("结束与[%s:%s]的通信..." % (client[0], client[1]))
                 break
-            elif client_data == "Param":
+            elif client_data == "Polling":
                 print("new connection taken,current conn id  is {}".format(id(link)))
-                t = threading.Thread(target=_redis.sub_msg, args=(link,))
-                t.start()
+                global mqtt_thread
+                if mqtt_thread == None :
+                    mqtt_thread = threading.Thread(target=_redis.sub_msg, args=(link,))
+                    mqtt_thread.start()
+                elif not mqtt_thread.isAlive():
+                    mqtt_thread = threading.Thread(target=_redis.sub_msg, args=(link,))
+                    mqtt_thread.start()
+                else:
+                    pass
+                # elif mqtt_thread.isAlive():
+                link.sendall(b'nop')
+                
             elif "#" in client_data:
                 publish_to_redis(link, client_data)
+                link.sendall(b'ok')
 
             print("来自[%s:%s]的客户端向你发来信息：%s" %
                   (client[0], client[1], client_data))
-            link.sendall('服务器已经收到你的信息'.encode())
+            link.sendall('server has recevied your message'.encode())
     # link.close()
+
+
 def main():
     # 启动mqtt子进程
     # multiprocessing.freeze_support()
@@ -70,6 +83,6 @@ def main():
         t = threading.Thread(target=link_handler, args=(conn, address))
         t.start()
 
+
 if __name__ == "__main__":
     main()
-    
