@@ -57,7 +57,7 @@ def link_handler(link, client):
 
             print("来自[%s:%s]的客户端向你发来信息：%s" %
                   (client[0], client[1], client_data))
-            link.sendall('server has recevied your message'.encode())
+            # link.sendall('server has recevied your message'.encode())
     # link.close()
 
 
