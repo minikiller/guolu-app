@@ -53,7 +53,7 @@ def link_handler(link, client):
                 
             elif "#" in client_data:
                 publish_to_redis(link, client_data)
-                link.sendall(b'ok')
+                # link.sendall(b'ok')
 
             print("来自[%s:%s]的客户端向你发来信息：%s" %
                   (client[0], client[1], client_data))
