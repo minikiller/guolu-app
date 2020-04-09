@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
+"""
+用于测试客户端发送遥测数据
 
+"""
 import socket
 import time
 

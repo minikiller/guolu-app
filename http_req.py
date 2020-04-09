@@ -1,6 +1,8 @@
 import requests
 import json
 from config import HOST_IP, DataEncoder
+"""发送http方式，发送遥测数据
+"""
 
 url = HOST_IP + "api/v1/{}/telemetry"
 headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}

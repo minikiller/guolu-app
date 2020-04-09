@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
-
+"""socket 连接主程序
+负责接受客户端的连接，独立运行
+"""
 import socket
 import threading  # 导入线程模块
 import redis_get as _redis
@@ -8,6 +10,7 @@ import config
 import redis
 import multiprocessing
 import mqtt_client
+
 
 thread_list = []
 mqtt_thread = None

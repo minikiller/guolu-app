@@ -1,5 +1,9 @@
 from json import JSONEncoder
 
+"""系统的配置参数以及全局常量定义
+
+"""
+
 THINGSBOARD_HOST = '106.12.216.163'
 HOST_IP = "http://{}:8080/".format(THINGSBOARD_HOST)
 
@@ -25,7 +29,11 @@ TOKEN_ITEMS = {
     device_A4: 4
 }
 
+"""用于json格式化dump的类
 
+Returns:
+    [type] -- [description]
+"""
 class DataEncoder(JSONEncoder):
     def default(self, o):
         return o.__dict__

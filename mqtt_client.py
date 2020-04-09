@@ -124,6 +124,7 @@ def sub_redis():
 def runit():
     pass
 
+
 def main():
     try:
         run_mqtt()
