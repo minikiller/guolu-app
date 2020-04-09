@@ -9,7 +9,6 @@ import redis
 import multiprocessing
 import mqtt_client
 
-
 thread_list = []
 mqtt_thread = None
 
@@ -40,25 +39,22 @@ def link_handler(link, client):
             elif client_data == "Polling":
                 print("new connection taken,current conn id  is {}".format(id(link)))
                 global mqtt_thread
-                if mqtt_thread == None :
-                    mqtt_thread = threading.Thread(target=_redis.sub_msg, args=(link,))
-                    mqtt_thread.start()
-                elif not mqtt_thread.isAlive():
-                    mqtt_thread = threading.Thread(target=_redis.sub_msg, args=(link,))
+                if mqtt_thread is None or not mqtt_thread.isAlive():
+                    mqtt_thread = threading.Thread(
+                        target=_redis.sub_msg, args=(link,))
                     mqtt_thread.start()
                 else:
                     pass
                 # elif mqtt_thread.isAlive():
                 link.sendall(b'nop')
-                
+
             elif "#" in client_data:
                 publish_to_redis(link, client_data)
                 # link.sendall(b'ok')
 
-            print("来自[%s:%s]的客户端向你发来信息：%s" %
+            print("来自[%s:%s]的客户端向你发来信息：\n %s" %
                   (client[0], client[1], client_data))
             # link.sendall('server has recevied your message'.encode())
-    # link.close()
 
 
 def main():
