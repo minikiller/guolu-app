@@ -1,6 +1,4 @@
-# This Program illustrates the Server Side RPC on ThingsBoard IoT Platform
-# Paste your ThingsBoard IoT Platform IP and Device access token
-# Temperature_Controller_Server_Side_RPC.py : This program illustrates Server side RPC using a Simulated Temperature Controller
+# mqtt客户端，负责独立运行，接受mqtt的消息
 import os
 import time
 import sys
@@ -10,11 +8,12 @@ import paho.mqtt.client as mqtt
 from threading import Thread, local
 from param import Param
 import threading
-from config import THINGSBOARD_HOST, TOKEN_KEYS, DataEncoder
+from config import THINGSBOARD_HOST, TOKEN_KEYS, DataEncoder, TOKEN_LIST
 import config
 import redis
 from data import Data
-
+import concurrent.futures
+from multiprocessing import freeze_support
 # Thingsboard platform credentials
 # THINGSBOARD_HOST = '106.12.216.163'  # Change IP Address
 
@@ -32,12 +31,13 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
 
     if msg.topic.startswith(attributesTopic):
+        redis_conn = redis.StrictRedis(host='localhost', port=6379, db=0)
         value = json.loads(msg.payload)
         # cur_thread = threading.current_thread()
         token = device._token
         data = Param.getInstance(token, **value)
         print("prepare to send {}".format(data))
-        _redis.publish("guolu", str(data))
+        redis_conn.publish("guolu", str(data))
 
 
 def setup_conn(token):
@@ -64,10 +64,14 @@ def setup_conn(token):
         #     pass
 
     except KeyboardInterrupt:
+        print("mqtt is interrupted")
         client.disconnect()
 
 
 def run_mqtt():
+
+    # with concurrent.futures.ThreadPoolExecutor() as executor:
+    #     executor.map(setup_conn, TOKEN_LIST)
     for key in config.TOKEN_KEYS:
         k = threading.Thread(target=setup_conn,
                              args=(config.TOKEN_KEYS[key],))
@@ -77,6 +81,8 @@ def run_mqtt():
         t.setDaemon(True)
         t.start()
 
+    s = threading.Thread(target=sub_redis)
+    s.start()
     for t in thread_list:
         t.join()
 
@@ -87,7 +93,7 @@ def publish_mqtt(data):
     Arguments:
         data {[type]} -- [description]
     """
-    groups = data.split("#")
+    groups = data.decode().split("#")
     for index, group in enumerate(groups):
         print("info of group {}".format(group))
         values = [float(x) for x in group.split(",")]
@@ -115,14 +121,17 @@ def sub_redis():
                 time.sleep(0.001)
 
 
+def runit():
+    pass
+
 def main():
     try:
-        if len(thread_list) == 0:
-            run_mqtt()
-        sub_redis()
-    except:
-        print("unable to run")
+        run_mqtt()
+        # sub_redis()
+    except Exception as e:
+        print(e)
 
 
 if __name__ == "__main__":
+    # freeze_support()
     main()

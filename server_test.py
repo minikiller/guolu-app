@@ -6,6 +6,8 @@ import threading  # 导入线程模块
 import redis_get as _redis
 import config
 import redis
+import multiprocessing   
+import mqtt_client
 
 
 
@@ -46,22 +48,28 @@ def link_handler(link, client):
                   (client[0], client[1], client_data))
             link.sendall('服务器已经收到你的信息'.encode())
     # link.close()
+def main():
+    # 启动mqtt子进程
+    # multiprocessing.freeze_support()
+    # p = multiprocessing.Process(target=mqtt_client.main)
+    # p.start()
+    # p.join()
 
+    ip_port = ('0.0.0.0', 9998)
+    sk = socket.socket()            # 创建套接字
+    sk.bind(ip_port)                # 绑定服务地址
+    sk.listen(5)  # 监听连接请求
 
-ip_port = ('127.0.0.1', 9998)
-sk = socket.socket()            # 创建套接字
-sk.bind(ip_port)                # 绑定服务地址
-sk.listen(5)  # 监听连接请求
+    print('启动socket服务，等待客户端连接...')
 
+    while True:     # 一个死循环，不断的接受客户端发来的连接请求
+        conn, address = sk.accept()  # 等待连接，此处自动阻塞
+        # 每当有新的连接过来，自动创建一个新的线程，
+        # 并将连接对象和访问者的ip信息作为参数传递给线程的执行函数
 
+        t = threading.Thread(target=link_handler, args=(conn, address))
+        t.start()
 
-print('启动socket服务，等待客户端连接...')
-
-while True:     # 一个死循环，不断的接受客户端发来的连接请求
-    conn, address = sk.accept()  # 等待连接，此处自动阻塞
-    # 每当有新的连接过来，自动创建一个新的线程，
-    # 并将连接对象和访问者的ip信息作为参数传递给线程的执行函数
-
-    t = threading.Thread(target=link_handler, args=(conn, address))
-    t.start()
+if __name__ == "__main__":
+    main()
     

@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding:utf-8 -*-
-
 import http_req as req
 from config import TOKEN_KEYS
 

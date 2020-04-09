@@ -1,12 +1,9 @@
 import requests
 import json
-
-from config import HOST_IP,DataEncoder
+from config import HOST_IP, DataEncoder
 
 url = HOST_IP + "api/v1/{}/telemetry"
-
 headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
-
 
 def post_data(token, data):
     target = url.format(token)
@@ -18,9 +15,6 @@ def post_data(token, data):
     print(r.json)
 
 # subclass JSONEncoder
-
-
-
 
 
 def main():

@@ -3,7 +3,6 @@
 import sys
 from data import Data
 from param import Param
-import post
 import config
 
 # reload(sys)
@@ -85,9 +84,9 @@ def post_data(link, client_data):
         data.post(index)
     link.sendall('ok'.encode())
 
-def run_mqtt_loop(conn):
-    for key in config.TOKEN_KEYS:
-        post.setup_conn(config.TOKEN_KEYS[key])
+# def run_mqtt_loop(conn):
+#     for key in config.TOKEN_KEYS:
+#         post.setup_conn(config.TOKEN_KEYS[key])
 
 def run_mqtt(conn):
     """ create mqtt client listen for parameter change message
