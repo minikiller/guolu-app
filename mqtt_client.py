@@ -16,6 +16,11 @@ import concurrent.futures
 from multiprocessing import freeze_support
 # Thingsboard platform credentials
 # THINGSBOARD_HOST = '106.12.216.163'  # Change IP Address
+"""独立运行的mqtt客户端，遥测数据和参数修改都使用mqtt
+
+Raises:
+    SystemError: [description]
+"""
 
 attributesTopic = 'v1/devices/me/attributes'
 telemetryTopic = 'v1/devices/me/telemetry'
@@ -31,6 +36,7 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
 
     if msg.topic.startswith(attributesTopic):
+        # 当接受到参数修改的topic时候，发送数据给redis的guolu主题
         redis_conn = redis.StrictRedis(host='localhost', port=6379, db=0)
         value = json.loads(msg.payload)
         # cur_thread = threading.current_thread()
@@ -69,6 +75,9 @@ def setup_conn(token):
 
 
 def run_mqtt():
+    """创建threading，四个设备建立四个线程
+
+    """
 
     # with concurrent.futures.ThreadPoolExecutor() as executor:
     #     executor.map(setup_conn, TOKEN_LIST)
@@ -80,15 +89,16 @@ def run_mqtt():
     for t in thread_list:
         t.setDaemon(True)
         t.start()
-
+    #创建redis等待thread
     s = threading.Thread(target=sub_redis)
     s.start()
+    
     for t in thread_list:
         t.join()
 
 
 def publish_mqtt(data):
-    """publish data to mqtt
+    """publish 遥测数据 to mqtt
 
     Arguments:
         data {[type]} -- [description]
@@ -105,7 +115,7 @@ def publish_mqtt(data):
 
 
 def sub_redis():
-    """[summary]
+    """循环等待接受redis的遥测数据，redis的主题是kalix
     """
     _redis = redis.StrictRedis(host='localhost', port=6379, db=0)
     with _redis:
