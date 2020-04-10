@@ -1,6 +1,6 @@
 import  redis 
 import  time
-"""tredis_conny to test redis_connedis sub/pub
+"""redis to test sub/pub
 """
 
 
@@ -19,6 +19,6 @@ def sub_msg(conn=None):
                     conn.sendall(msg['data'])
                 if conn._closed:
                     break
-                time.sleep(0.001)
+                time.sleep(0.01)
                 
     
