@@ -36,8 +36,9 @@ class GeneralType(Enum):
 general_param = ("Interval", "SampleNum", "Threshold", "DeviceNum", "Fluid")
 
 spec_param = ("P_Range", "T_Range", "KP_Range", "WP_Range",
-              "In_Dia", "a_Kb", "a_Wg", "d_Kb", "d_Wg",
-              "P_Value", "Dp_Kb", "Dp_Wg", "T_Value", "Dry_Value", "Qm_Value", "Acc_Qm_Value")
+              "In_Dia", "a_Kb", "a_Wg", "d_Kb",
+              "d_Wg", "P_Value", "Dp_Kb", "Dp_Wg",
+              "T_Value", "Dry_Value", "Qm_Value", "Acc_Qm_Value")
 
 
 class Param:
@@ -73,7 +74,7 @@ class Param:
 def main():
     # hello = Param(0, "Interval", 15)
     # print(hello.__dict__)
-    value = {"Interval1":15}
+    value = {"Interval1": 15}
     ACCESS_TOKEN = "39gYWBel4bIyX0aJpyRJ"
     data = Param.getInstance(ACCESS_TOKEN, **value)
     print(str(data))
