@@ -14,6 +14,7 @@ import redis
 from data import Data
 import concurrent.futures
 from multiprocessing import freeze_support
+import logger
 # Thingsboard platform credentials
 # THINGSBOARD_HOST = '106.12.216.163'  # Change IP Address
 """独立运行的mqtt客户端，遥测数据和参数修改都使用mqtt
@@ -27,7 +28,7 @@ telemetryTopic = 'v1/devices/me/telemetry'
 device = local()
 mqtt_client = {}
 thread_list = []
-
+_logger=logger.get_logger(__name__)
 
 def on_connect(client, userdata, flags, rc):
     client.subscribe(attributesTopic)
@@ -42,7 +43,7 @@ def on_message(client, userdata, msg):
         # cur_thread = threading.current_thread()
         token = device._token
         data = Param.getInstance(token, **value)
-        print("prepare to send {}".format(data))
+        _logger.info("prepare to send {}".format(data))
         redis_conn.publish("guolu", str(data))
 
 
@@ -53,8 +54,8 @@ def setup_conn(token):
     client.on_connect = on_connect
     client.on_message = on_message
     client.username_pw_set(token)
-    print("mqtt will be connect to {}".format(THINGSBOARD_HOST))
-    print("token will be used {}".format(token))
+    _logger.info("mqtt will be connect to {}".format(THINGSBOARD_HOST))
+    _logger.info("token will be used {}".format(token))
 
     client.connect(THINGSBOARD_HOST, 1883, 60)
     mqtt_client[token] = client
@@ -70,7 +71,7 @@ def setup_conn(token):
         #     pass
 
     except KeyboardInterrupt:
-        print("mqtt is interrupted")
+        _logger.error("mqtt is interrupted")
         client.disconnect()
 
 
@@ -105,7 +106,7 @@ def publish_mqtt(data):
     """
     groups = data.decode().split("#")
     for index, group in enumerate(groups):
-        print("info of group {}".format(group))
+        _logger.info("info of group {}".format(group))
         values = [float(x) for x in group.split(",")]
         data = Data(values)
         token = TOKEN_KEYS.get(index)
@@ -125,7 +126,7 @@ def sub_redis():
             while True:
                 msg = p.get_message()
                 if msg:
-                    print("get subscribe from redis, value is {}".format(
+                    _logger.info("get subscribe from redis, value is {}".format(
                         msg['data']))
                     publish_mqtt(msg['data'])
                 time.sleep(0.001)
@@ -140,7 +141,7 @@ def main():
         run_mqtt()
         # sub_redis()
     except Exception as e:
-        print(e)
+        _logger.info(e)
 
 
 if __name__ == "__main__":

@@ -1,7 +1,10 @@
 import  redis 
-import  time
+import time
+import logger
 """监听redis的guolu主题，发送修改参数的变量名称和数值给socket连接
 """
+
+_logger=logger.get_logger(__name__)
 
 
 def sub_msg(conn=None):
@@ -20,7 +23,7 @@ def sub_msg(conn=None):
             while True:
                 msg = pub.get_message()
                 if msg:
-                    print("get subscribe from is, value is {}".format(msg['data']))
+                    _logger.info("get subscribe from redis, value is {}".format(msg['data']))
                     conn.sendall(msg['data'])
                 if conn._closed:
                     break
