@@ -14,17 +14,14 @@ class SpecType(Enum):
     a_Wg: 6  # 文管系数
     d_Kb: 7  # 孔板喉径
     d_Wg: 8  # 文管喉径
-    No_Pipe: 9 #"111注汽管网"  # 安装位置
+    No_Pipe: 9  # "111注汽管网"  # 安装位置
     P_Modify: 10  # 压力值     
     Dp_Kb: 11  #  孔板差压值    
-    Dp_Wg: 12  #  文管差压值   
+    Dp_Wg: 12  #  文管差压值   
     T_Value: 13  #  温度值  
-    Dry_Value: 14 # 干度值 
-    Qm_Value: 15 # 流量值 
-    Acc_Qm_Value: 16   # 累积流量值
-     
-
-      
+    Dry_Value: 14  #  干度值
+    Qm_Value: 15  #  流量值 
+    Acc_Qm_Value: 16  #  累积流量值
 
 
 @unique
@@ -40,7 +37,7 @@ general_param = ("Interval", "SampleNum", "Threshold", "DeviceNum", "Fluid")
 
 spec_param = ("P_Range", "T_Range", "KP_Range", "WP_Range",
               "In_Dia", "a_Kb", "a_Wg", "d_Kb",
-              "d_Wg", "P_Value", "Dp_Kb", "Dp_Wg",
+              "d_Wg", "No_Pipe", "P_Value", "Dp_Kb", "Dp_Wg",
               "T_Value", "Dry_Value", "Qm_Value", "Acc_Qm_Value")
 
 
