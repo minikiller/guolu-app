@@ -15,7 +15,7 @@ class SpecType(Enum):
     d_Kb: 7  # 孔板喉径
     d_Wg: 8  # 文管喉径
     No_Pipe: 9  # "111注汽管网"  # 安装位置
-    P_Modify: 10  # 压力值     
+    P_Value: 10  # 压力值     
     Dp_Kb: 11  #  孔板差压值    
     Dp_Wg: 12  #  文管差压值   
     T_Value: 13  #  温度值  

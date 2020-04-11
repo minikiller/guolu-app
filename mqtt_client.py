@@ -28,7 +28,8 @@ telemetryTopic = 'v1/devices/me/telemetry'
 device = local()
 mqtt_client = {}
 thread_list = []
-_logger=logger.get_logger(__name__)
+_logger = logger.get_logger(__name__)
+
 
 def on_connect(client, userdata, flags, rc):
     client.subscribe(attributesTopic)
@@ -90,10 +91,10 @@ def run_mqtt():
     for t in thread_list:
         t.setDaemon(True)
         t.start()
-    #创建redis等待thread
+    # 创建redis等待thread
     s = threading.Thread(target=sub_redis)
     s.start()
-    
+
     for t in thread_list:
         t.join()
 

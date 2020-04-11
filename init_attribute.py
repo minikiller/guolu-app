@@ -14,10 +14,16 @@ DEVICE_ID_A2 = "b93fda10-56cf-11ea-9eca-97bfcfb9f3d0"
 DEVICE_ID_A3 = "bf2d0880-56cf-11ea-9eca-97bfcfb9f3d0"
 DEVICE_ID_A4 = "c62a6e70-56cf-11ea-9eca-97bfcfb9f3d0"
 
+# device_list=("03dd1a80-7bf4-11ea-aa25-ad673d3fddf6",)
 device_list=(DEVICE_ID_A1,DEVICE_ID_A2,DEVICE_ID_A3,DEVICE_ID_A4)
+
 auth_data = {"username": "sunlingfeng@xcloudlive.com", "password": "123456"}
 headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
 shared_address = HOST_IP + "api/plugins/telemetry/DEVICE/{}/SHARED_SCOPE"
+# 删除attribute的url地址，后面跟key数值，以逗号分割
+# del_shared_address = HOST_IP + "api/plugins/telemetry/DEVICE/{}/SHARED_SCOPE?keys=DeviceNum,Interval"
+del_shared_address = HOST_IP + "api/plugins/telemetry/DEVICE/{}/SHARED_SCOPE?keys=P_Modify"
+
 
 shared_device_attribute = {
     "P_Range": 32,
@@ -30,7 +36,7 @@ shared_device_attribute = {
     "d_Kb": 34.68,
     "d_Wg": 28.56,
     "No_Pipe": "111注汽管网",
-    "P_Modify": 10,  # 压力值     
+    "P_Value": 10,  # 压力值     
     "Dp_Kb": 11,  #  孔板差压值    
     "Dp_Wg": 12,  #  文管差压值   
     "T_Value": 13,  #  温度值  
@@ -48,22 +54,39 @@ shared_attribute = {
 }
 """get auth token
 """
-r_data = json.dumps(auth_data, indent=4)
-print("send json data is {}".format(r_data))
-r = requests.post(AUTH_ADDRESS,
-                  data=r_data, headers=headers)
-print(r.content)
-data = json.loads(r.content)
-token = data['token']
-
-headers['x-authorization'] = 'Bearer ' + token
-
-r_data = json.dumps(shared_device_attribute, indent=4)
-for device_id in device_list:
+def getAuth():
+    r_data = json.dumps(auth_data, indent=4)
     print("send json data is {}".format(r_data))
-    addr = shared_address.format(device_id)
-    print("send addr is {}".format(addr))
-    
-    r = requests.post(addr,
+    r = requests.post(AUTH_ADDRESS,
                     data=r_data, headers=headers)
-    print(r.status_code)
+    print(r.content)
+    data = json.loads(r.content)
+    token = data['token']
+
+    headers['x-authorization'] = 'Bearer ' + token
+    return headers
+
+def init_attribute(headers):
+    r_data = json.dumps(shared_device_attribute, indent=4)
+    for device_id in device_list:
+        print("send json data is {}".format(r_data))
+        addr = shared_address.format(device_id)
+        print("send addr is {}".format(addr))
+        
+        r = requests.post(addr,
+                        data=r_data, headers=headers)
+        print(r.status_code)
+
+def main():
+    init_attribute(getAuth())
+
+def delete(headers):
+    for device_id in device_list:
+        # print("send json data is {}".format(r_data))
+        addr = del_shared_address.format(device_id)
+        r = requests.delete(addr, headers=headers)
+        print(r.status_code)
+
+if __name__ == "__main__":
+    # delete(getAuth())
+    main()

@@ -16,3 +16,9 @@ socket server
 ### 总体概述
 本应用主要是负责和thingsboard对接，核心设计是采用mqtt进行数据的传递。
 redis负责异步消息，通过两个topic，一个guolu，负责接受tb的参数修改，一个kalix负责遥测数据的传递。
+
+### thingsboard scope
+api 地址中的api/plugins/telemetry/DEVICE/{}/SHARED_SCOPE可以是以下的数值
+SERVER_SCOPE
+SHARED_SCOPE
+CLIENT_SCOPE
