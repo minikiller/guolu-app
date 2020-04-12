@@ -7,11 +7,14 @@ socket testing data is:
 
 ### server.py
 socket server，通过http的post发射遥测数据(暂不使用)
-### server_test.py
+### socket_server.py
 通过mqtt接受遥测数据，并监听redis的订阅消息
 socket server
 ### mqtt-client
-独立运行，启动mqtt客户端
+独立运行，启动mqtt客户端，接受thingsboard端的设备参数修改，同时publish遥测数据
+
+### init_attribute
+对设备参数对初始化设置，socket头是UpLoadPara
 
 ### 总体概述
 本应用主要是负责和thingsboard对接，核心设计是采用mqtt进行数据的传递。
@@ -22,3 +25,7 @@ api 地址中的api/plugins/telemetry/DEVICE/{}/SHARED_SCOPE可以是以下的�
 SERVER_SCOPE
 SHARED_SCOPE
 CLIENT_SCOPE
+
+##todo 
+1.config file to read
+2.threading monitor

@@ -11,14 +11,20 @@ import redis
 import multiprocessing
 import mqtt_client
 import logger
-
+import init_attribute
 
 thread_list = []
 mqtt_thread = None
-_logger=logger.get_logger(__name__)
+_logger = logger.get_logger(__name__)
 
 
 def publish_to_redis(link, client_data):
+    """发送数据到redis
+
+    Arguments:
+        link {[type]} -- [description]
+        client_data {[type]} -- [description]
+    """
     redis_conn = redis.StrictRedis(host='localhost', port=6379, db=0)
     with redis_conn:
         redis_conn.publish("kalix", client_data)
@@ -37,12 +43,15 @@ def link_handler(link, client):
             data = link.recv(1024)
             if not data:
                 break
-            client_data = data.decode()
-            if client_data == "exit":
+            else:
+                client_data = data.decode()
+                _logger.info("new client is connected,info is {},{}".format(
+                    client[0], client[1]))
+
+            if client_data == "Exit":
                 _logger.info("结束与[%s:%s]的通信..." % (client[0], client[1]))
                 break
-            elif client_data == "Polling":
-                _logger.info("new connection taken,current conn id  is {}".format(id(link)))
+            elif client_data == "Polling":  # 负责接受tb端的参数修改
                 global mqtt_thread
                 if mqtt_thread is None or not mqtt_thread.isAlive():
                     mqtt_thread = threading.Thread(
@@ -52,13 +61,16 @@ def link_handler(link, client):
                     pass
                 # elif mqtt_thread.isAlive():
                 link.sendall(b'nop')
-
-            elif "#" in client_data:
+            elif "UpLoadPara" in client_data:  # 负责初始化设备的共享参数
+                temp_thread = threading.Thread(
+                    target=init_attribute.send_param_to_tb, args=(client_data,))
+                temp_thread.start()
+            elif "#" in client_data:  # 负责接受遥测数据
                 publish_to_redis(link, client_data)
                 # link.sendall(b'ok')
 
             _logger.info("来自[%s:%s]的客户端向你发来信息：\n %s" %
-                  (client[0], client[1], client_data))
+                         (client[0], client[1], client_data))
             link.sendall('服务器 server has recevied your message 123'.encode())
 
 

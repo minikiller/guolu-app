@@ -107,7 +107,7 @@ def publish_mqtt(data):
     """
     groups = data.decode().split("#")
     for index, group in enumerate(groups):
-        _logger.info("info of group {}".format(group))
+        _logger.info("received telemetry data is {}".format(group))
         values = [float(x) for x in group.split(",")]
         data = Data(values)
         token = TOKEN_KEYS.get(index)
