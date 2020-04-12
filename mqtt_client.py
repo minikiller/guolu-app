@@ -105,16 +105,18 @@ def publish_mqtt(data):
     Arguments:
         data {[type]} -- [description]
     """
-    groups = data.decode().split("#")
-    for index, group in enumerate(groups):
-        _logger.info("received telemetry data is {}".format(group))
-        values = [float(x) for x in group.split(",")]
-        data = Data(values)
-        token = TOKEN_KEYS.get(index)
-        client = mqtt_client.get(token)
-        p_data = json.dumps(data, indent=4, cls=DataEncoder)
-        client.publish(telemetryTopic, p_data, 1)
-
+    try:
+        groups = data.decode().split("#")
+        for index, group in enumerate(groups):
+            _logger.info("received telemetry data is {}".format(group))
+            values = [float(x) for x in group.split(",")]
+            data = Data(values)
+            token = TOKEN_KEYS.get(index)
+            client = mqtt_client.get(token)
+            p_data = json.dumps(data, indent=4, cls=DataEncoder)
+            client.publish(telemetryTopic, p_data, 1)
+    except Exception as e:
+        _logger.error("error is occured {}".format(e)) 
 
 def sub_redis():
     """循环等待接受redis的遥测数据，redis的主题是kalix
