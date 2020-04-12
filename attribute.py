@@ -23,11 +23,11 @@ class SpecAttribute:
         self.P_Range = float(params[0])  # 压力量程
         self.T_Range = float(params[1])  # 温度量程
         self.KP_Range = float(params[2])  # 孔板差压量程
-        self.WP_Range = float(params[3])  # 文管差压量程
-        self.In_Dia = float(params[4])  # 管道内径
-        self.a_Kb = float(params[5])  # 孔板系数
+        self.a_Kb = float(params[3])  # 孔板系数
+        self.d_Kb = float(params[4])  # 孔板喉径
+        self.WP_Range = float(params[5])  # 文管差压量程
         self.a_Wg = float(params[6])  # 文管系数
-        self.d_Kb = float(params[7])  # 孔板喉径
-        self.d_Wg = float(params[8])  # 文管喉径
+        self.d_Wg = float(params[7])  # 文管喉径
+        self.In_Dia = float(params[8])  # 管道内径
         self.No_Pipe = params[9]  # "111注汽管网"  # 安装位置
         
