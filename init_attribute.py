@@ -83,7 +83,7 @@ def getAuth():
 
 def set_redis_key():
     """
-    设置一个key，用来控制redis是否接受客户端的参数修改，过期时间为60s
+    redis设置一个key，用来控制redis是否接受客户端的参数修改，过期时间为60s
     """
     r = redis.StrictRedis(host='localhost', port=6379, db=0)
     with r:
@@ -97,8 +97,7 @@ def init_attribute(headers):
         addr = shared_address.format(device_id)
         print("send addr is {}".format(addr))
 
-        r = requests.post(addr,
-                          data=r_data, headers=headers)
+        r = requests.post(addr,data=r_data, headers=headers)
         _logger.info(r.status_code)
 
 

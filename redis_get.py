@@ -1,7 +1,8 @@
 import  redis 
 import time
 import logger
-"""监听redis的guolu主题，发送修改参数的变量名称和数值给socket连接
+"""
+监听redis的guolu主题，发送修改参数的变量名称和数值给socket连接
 """
 
 _logger=logger.get_logger(__name__)

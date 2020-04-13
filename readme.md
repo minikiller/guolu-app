@@ -26,7 +26,7 @@ SERVER_SCOPE
 SHARED_SCOPE
 CLIENT_SCOPE
 
-##todo 
+## todo 
 1.config file to read
 2.threading monitor
 

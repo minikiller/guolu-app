@@ -1,6 +1,7 @@
 import http_req as req
 from config import TOKEN_KEYS
-"""遥测数据结构
+"""
+遥测数据结构
 """
 
 class Data:
