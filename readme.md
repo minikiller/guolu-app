@@ -29,3 +29,6 @@ CLIENT_SCOPE
 ##todo 
 1.config file to read
 2.threading monitor
+
+### vim /etc/redis.conf
+slave-read-only no
