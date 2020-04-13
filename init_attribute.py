@@ -4,6 +4,7 @@ import json
 from config import HOST_IP, DataEncoder
 import logger
 import attribute
+import redis
 """
 初始化shared属性，通过调用token
 """
@@ -80,6 +81,14 @@ def getAuth():
     headers['x-authorization'] = 'Bearer ' + token
     return headers
 
+def set_redis_key():
+    """
+    设置一个key，用来控制redis是否接受客户端的参数修改，过期时间为60s
+    """
+    r = redis.StrictRedis(host='localhost', port=6379, db=0)
+    with r:
+        r.set('InitDevice', 'True') 
+        r.expire('InitDevice', 60) 
 
 def init_attribute(headers):
     r_data = json.dumps(shared_device_attribute, indent=4)
@@ -106,6 +115,7 @@ def delete(headers):
 
 
 def send_param_to_tb(data):
+    set_redis_key()
     groups = data.split("#")
     # 忽略groups[0]
     general_list = groups[1].split(",")

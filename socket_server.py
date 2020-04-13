@@ -71,7 +71,7 @@ def link_handler(link, client):
 
             _logger.info("来自[%s:%s]的客户端向你发来信息：\n %s" %
                          (client[0], client[1], client_data))
-            link.sendall('服务器 server has recevied your message 123'.encode())
+            # link.sendall('服务器 server has recevied your message 123'.encode())
 
 
 def main():

@@ -22,11 +22,14 @@ def sub_msg(conn=None):
             pub.subscribe('guolu')
             while True:
                 msg = pub.get_message()
-                if msg:
+                if msg and not redis_conn.exists('InitDevice'):
                     _logger.info("get subscribe from redis, value is {}".format(msg['data']))
-                    conn.sendall(msg['data'])
-                if conn._closed:
-                    break
+                     
+                    if conn._closed:
+                        break
+                    else:
+                        conn.sendall(msg['data'])
+                
                 time.sleep(0.01)
                 
     
