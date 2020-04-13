@@ -9,7 +9,7 @@ import configparser
 config = configparser.ConfigParser()
 config.read("guolu.conf", encoding="utf-8")
  
-THINGSBOARD_HOST = config.get("thingsboard", "host")
+THINGSBOARD_HOST = config.get("thingsboard", "host") #'106.12.216.163'
 HOST_IP = "http://{}:8080/".format(THINGSBOARD_HOST)
 
 device_A1 = config.get("thingsboard", "device_A1")
