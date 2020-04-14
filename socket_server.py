@@ -45,8 +45,8 @@ def link_handler(link, client):
                 break
             else:
                 client_data = data.decode()
-                _logger.info("new client is connected,info is {},{}".format(
-                    client[0], client[1]))
+                # _logger.info("new client is connected,info is {},{}".format(
+                #     client[0], client[1]))
 
             if client_data == "Exit":
                 _logger.info("结束与[%s:%s]的通信..." % (client[0], client[1]))
