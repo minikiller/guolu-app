@@ -88,7 +88,7 @@ def set_redis_key():
     r = redis.StrictRedis(host='localhost', port=6379, db=0)
     with r:
         r.set('InitDevice', 'True') 
-        r.expire('InitDevice', 10) 
+        r.expire('InitDevice', 4) 
 
 def init_attribute(headers):
     r_data = json.dumps(shared_device_attribute, indent=4)
