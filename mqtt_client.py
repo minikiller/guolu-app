@@ -15,6 +15,7 @@ from data import Data
 import concurrent.futures
 from multiprocessing import freeze_support
 import logger
+import socket
 # Thingsboard platform credentials
 # THINGSBOARD_HOST = '106.12.216.163'  # Change IP Address
 """独立运行的mqtt客户端，遥测数据和参数修改都使用mqtt
@@ -30,6 +31,13 @@ mqtt_client = {}
 thread_list = []
 _logger = logger.get_logger(__name__)
 
+def on_disconnect(client, userdata, rc):
+    if rc != 0:
+        _logger.error("mqtt disconnection,attempting to reconnect")
+        try:
+            client.reconnect()
+        except socket.error as e:
+            _logger.error(e)  
 
 def on_connect(client, userdata, flags, rc):
     client.subscribe(attributesTopic)
@@ -54,6 +62,7 @@ def setup_conn(token):
     client = mqtt.Client()
     client.on_connect = on_connect
     client.on_message = on_message
+    client.on_disconnect = on_disconnect
     client.username_pw_set(token)
     _logger.info("mqtt will be connect to {}".format(THINGSBOARD_HOST))
     _logger.info("token will be used {}".format(token))
