@@ -33,7 +33,7 @@ _logger = logger.get_logger(__name__)
 
 def on_disconnect(client, userdata, rc):
     if rc != 0:
-        _logger.error("mqtt disconnection,attempting to reconnect")
+        _logger.error("mqtt disconnection,attempting to reconnect,token is {}".format(device._token))
         try:
             client.reconnect()
         except socket.error as e:
@@ -67,7 +67,7 @@ def setup_conn(token):
     _logger.info("mqtt will be connect to {}".format(THINGSBOARD_HOST))
     _logger.info("token will be used {}".format(token))
 
-    client.connect(THINGSBOARD_HOST, 1883, 60)
+    client.connect(THINGSBOARD_HOST,port=1883, keepalive=60)
     mqtt_client[token] = client
 
     try:

@@ -14,13 +14,17 @@ const attributesResponseTopic = attributesRequestTopic.replace('request', 'respo
 
 // Initialization of mqtt client using Thingsboard host and device access token
 console.log('Connecting to: %s using access token: %s', thingsboardHost, accessToken);
-var client = mqtt.connect('mqtt://' + thingsboardHost, {username: accessToken});
+var client = mqtt.connect('mqtt://' + thingsboardHost, { username: accessToken });
 
 var firmwareVersion = '1.0.1';
 var appState;
 // Telemetry upload is once per 5 seconds by default;
 var currentFrequency = 5;
 var uploadInterval;
+
+client.on('close', function () {
+    console.log("connection closed")
+})
 
 // Triggers when client is successfully connected to the Thingsboard server
 client.on('connect', function () {
@@ -68,7 +72,7 @@ client.on('message', function (topic, message) {
         } else {
             appState = random();
             console.log('This is first application launch. Going to publish random application state: %s', appState);
-            client.publish(attributesTopic, JSON.stringify({'appState': appState}));
+            client.publish(attributesTopic, JSON.stringify({ 'appState': appState }));
         }
         if (data.shared) {
             if (data.shared.uploadFrequency && data.shared.uploadFrequency != currentFrequency) {

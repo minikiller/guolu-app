@@ -29,6 +29,10 @@ TOKEN_KEYS = {
     4: setting_device
 }
 
+# TOKEN_KEYS = {
+#     0:  "D2zdHCHsbKnGUGxi6U9t"
+# }
+
 TOKEN_ITEMS = {
     device_A1: 1,
     device_A2: 2,
