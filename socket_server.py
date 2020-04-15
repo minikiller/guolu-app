@@ -7,7 +7,7 @@ import socket
 import threading  # 导入线程模块
 import redis_get as _redis
 import config
-import redis
+import redis_wrapper
 import multiprocessing
 import mqtt_client
 import logger
@@ -25,9 +25,8 @@ def publish_to_redis(link, client_data):
         link {[type]} -- [description]
         client_data {[type]} -- [description]
     """
-    redis_conn = redis.StrictRedis(host='localhost', port=6379, db=0)
-    with redis_conn:
-        redis_conn.publish("kalix", client_data)
+    redis_conn = redis_wrapper.RedisWrapper().redis_connect()
+    redis_conn.publish("kalix", client_data)
 
 
 def link_handler(link, client):

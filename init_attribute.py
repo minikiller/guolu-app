@@ -4,7 +4,7 @@ import json
 from config import HOST_IP, DataEncoder
 import logger
 import attribute
-import redis
+import redis_wrapper
 """
 初始化shared属性，通过调用token
 """
@@ -85,10 +85,10 @@ def set_redis_key():
     """
     redis设置一个key，用来控制redis是否接受客户端的参数修改，过期时间为60s
     """
-    r = redis.StrictRedis(host='localhost', port=6379, db=0)
-    with r:
-        r.set('InitDevice', 'True') 
-        r.expire('InitDevice', 4) 
+    r = redis_wrapper.RedisWrapper().redis_connect()
+
+    r.set('InitDevice', 'True') 
+    r.expire('InitDevice', 4) 
 
 def init_attribute(headers):
     r_data = json.dumps(shared_device_attribute, indent=4)

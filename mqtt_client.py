@@ -10,7 +10,7 @@ from param import Param
 import threading
 from config import THINGSBOARD_HOST, TOKEN_KEYS, DataEncoder, TOKEN_LIST
 import config
-import redis
+import redis_wrapper
 from data import Data
 import concurrent.futures
 from multiprocessing import freeze_support
@@ -39,7 +39,7 @@ def on_message(client, userdata, msg):
 
     if msg.topic.startswith(attributesTopic):
         # 当接受到参数修改的topic时候，发送数据给redis的guolu主题
-        redis_conn = redis.StrictRedis(host='localhost', port=6379, db=0)
+        redis_conn = redis_wrapper.RedisWrapper().redis_connect()
         value = json.loads(msg.payload)
         # cur_thread = threading.current_thread()
         token = device._token
@@ -121,7 +121,7 @@ def publish_mqtt(data):
 def sub_redis():
     """循环等待接受redis的遥测数据，redis的主题是kalix
     """
-    _redis = redis.StrictRedis(host='localhost', port=6379, db=0)
+    _redis = redis_wrapper.RedisWrapper().redis_connect()
     with _redis:
         p = _redis.pubsub(ignore_subscribe_messages=True)
         with p:
