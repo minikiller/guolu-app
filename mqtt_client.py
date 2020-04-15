@@ -62,7 +62,7 @@ def setup_conn(token):
     client = mqtt.Client()
     client.on_connect = on_connect
     client.on_message = on_message
-    # client.on_disconnect = on_disconnect
+    client.on_disconnect = on_disconnect
     client.username_pw_set(token)
     _logger.info("mqtt will be connect to {}".format(THINGSBOARD_HOST))
     _logger.info("token will be used {}".format(token))
