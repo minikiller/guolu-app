@@ -31,13 +31,20 @@ mqtt_client = {}
 thread_list = []
 _logger = logger.get_logger(__name__)
 
+
+def on_log(client, userdata, level, buf):
+    _logger.info("log: {}".format(buf))
+
+
 def on_disconnect(client, userdata, rc):
     if rc != 0:
-        _logger.error("mqtt disconnection,attempting to reconnect,token is {}".format(device._token))
+        _logger.error(
+            "mqtt disconnection,attempting to reconnect,token is {}".format(device._token))
         try:
             client.reconnect()
         except socket.error as e:
-            _logger.error(e)  
+            _logger.error(e)
+
 
 def on_connect(client, userdata, flags, rc):
     client.subscribe(attributesTopic)
@@ -60,14 +67,16 @@ def setup_conn(token):
     device._token = token
 
     client = mqtt.Client()
+    client.on_log=on_log # set client logging
     client.on_connect = on_connect
     client.on_message = on_message
     client.on_disconnect = on_disconnect
+    client.enable_logger()
     client.username_pw_set(token)
-    _logger.info("mqtt will be connect to {}".format(THINGSBOARD_HOST))
-    _logger.info("token will be used {}".format(token))
 
-    client.connect(THINGSBOARD_HOST,port=1883, keepalive=60)
+    _logger.info("mqtt will connect to {},token will be used {}".format(THINGSBOARD_HOST,token))
+
+    client.connect(THINGSBOARD_HOST, port=1883, keepalive=60)
     mqtt_client[token] = client
 
     try:
@@ -125,7 +134,8 @@ def publish_mqtt(data):
             p_data = json.dumps(data, indent=4, cls=DataEncoder)
             client.publish(telemetryTopic, p_data, 1)
     except Exception as e:
-        _logger.error("error is occured {}".format(e)) 
+        _logger.error("error is occured {}".format(e))
+
 
 def sub_redis():
     """循环等待接受redis的遥测数据，redis的主题是kalix

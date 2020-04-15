@@ -2,9 +2,9 @@
 var mqtt = require('mqtt');
 var os = require("os");
 
-const thingsboardHost = "demo.thingsboard.io/";
+const thingsboardHost = "106.12.216.163";
 // Reads the access token from arguments
-const accessToken = '4dGUeh3i1ZXc5YNpgK7D';
+const accessToken = '9Lqw5CLDl7aAwApTf0ml';
 
 // Default topics. See http://thingsboard.io/docs/reference/mqtt-api/ for more details.
 const attributesTopic = 'v1/devices/me/attributes';

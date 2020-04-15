@@ -32,3 +32,6 @@ CLIENT_SCOPE
 
 ### vim /etc/redis.conf
 slave-read-only no
+
+## todo 
+write token data to mqtt userdata
