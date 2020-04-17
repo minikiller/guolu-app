@@ -38,39 +38,47 @@ def link_handler(link, client):
     """
     _logger.info("服务器开始接收来自[%s:%s]的请求...." % (client[0], client[1]))
     with link:
-        while True:     # 利用一个死循环，保持和客户端的通信状态
-            data = link.recv(1024)
-            if not data:
-                _logger.info("结束与[%s:%s]的通信break..." % (client[0], client[1]))
-                break
-            else:
-                client_data = data.decode()
-                # _logger.info("new client is connected,info is {},{}".format(
-                #     client[0], client[1]))
-
-            if client_data == "Exit":
-                _logger.info("结束与[%s:%s]的通信..." % (client[0], client[1]))
-                break
-            elif client_data == "Polling":  # 负责接受tb端的参数修改
-                global mqtt_thread
-                if mqtt_thread is None or not mqtt_thread.isAlive():
-                    mqtt_thread = threading.Thread(
-                        target=_redis.sub_msg, args=(link,))
-                    mqtt_thread.start()
+        try:
+            while True:     # 利用一个死循环，保持和客户端的通信状态
+                data = link.recv(1024)
+                if not data:
+                    _logger.info("结束与[%s:%s]的通信, breaking..." % (client[0], client[1]))
+                    break
                 else:
-                    pass
-                # elif mqtt_thread.isAlive():
-                link.sendall(b'nop')
-            elif "UpLoadPara" in client_data:  # 负责初始化设备的共享参数
-                temp_thread = threading.Thread(
-                    target=init_attribute.send_param_to_tb, args=(client_data,))
-                temp_thread.start()
-            elif "#" in client_data:  # 负责接受遥测数据
-                publish_to_redis(link, client_data)
-                # link.sendall(b'ok')
+                    client_data = data.decode()
+                    # _logger.info("new client is connected,info is {},{}".format(
+                    #     client[0], client[1]))
 
-            _logger.info("来自[%s:%s]的客户端向你发来信息：\n %s" %
-                         (client[0], client[1], client_data))
+                if client_data == "Exit":
+                    _logger.info("结束与[%s:%s]的通信..." % (client[0], client[1]))
+                    break
+                elif client_data == "Polling":  # 负责接受tb端的参数修改
+                    global mqtt_thread
+                    if mqtt_thread is None or not mqtt_thread.isAlive():
+                        mqtt_thread = threading.Thread(
+                            target=_redis.sub_msg, args=(link,))
+                        mqtt_thread.start()
+                    else:
+                        pass
+                    # elif mqtt_thread.isAlive():
+                    link.sendall(b'nop')
+                elif "UpLoadPara" in client_data:  # 负责初始化设备的共享参数
+                    temp_thread = threading.Thread(
+                        target=init_attribute.send_param_to_tb, args=(client_data,))
+                    temp_thread.start()
+                elif "#" in client_data:  # 负责接受遥测数据
+                    publish_to_redis(link, client_data)
+                    # link.sendall(b'ok')
+
+                _logger.info("来自[%s:%s]的客户端向你发来信息：\n %s" %
+                            (client[0], client[1], client_data))
+        except ConnectionResetError:
+            _logger.error("connection is closed {}".format(client[0]))
+            link.close()
+        except socket.error as msg:
+            _logger.error("socket error is occured, msg is "+msg)
+            link.close()
+            link = None
             # link.sendall('服务器 server has recevied your message 123'.encode())
 
 
