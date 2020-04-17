@@ -33,7 +33,7 @@ _logger = logger_mqtt.get_logger(__name__)
 
 
 def on_log(client, userdata, level, buf):
-    _logger.info("log: {}".format(buf))
+    _logger.info("log: {},token is {}".format(buf,device._token))
 
 
 def on_disconnect(client, userdata, rc):
