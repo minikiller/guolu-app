@@ -41,6 +41,7 @@ def link_handler(link, client):
         while True:     # 利用一个死循环，保持和客户端的通信状态
             data = link.recv(1024)
             if not data:
+                _logger.info("结束与[%s:%s]的通信break..." % (client[0], client[1]))
                 break
             else:
                 client_data = data.decode()
