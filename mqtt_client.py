@@ -73,6 +73,7 @@ def setup_conn(token):
     client.on_disconnect = on_disconnect
     client.enable_logger()
     client.username_pw_set(token)
+    client.user_data_set(token) # set userdata
 
     _logger.info("mqtt will connect to {},token will be used {}".format(THINGSBOARD_HOST,token))
 
