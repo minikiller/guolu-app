@@ -3,7 +3,7 @@ import sys
 from logging.handlers import TimedRotatingFileHandler
 FORMATTER = logging.Formatter(
     "[%(levelname)s] %(asctime)s — %(module)s - %(funcName)s —  %(message)s")
-LOG_FILE = "guolu_socket.log"
+LOG_FILE = "guolu_mqtt.log"
 
 
 def get_console_handler():

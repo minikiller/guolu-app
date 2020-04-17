@@ -14,7 +14,7 @@ import redis_wrapper
 from data import Data
 import concurrent.futures
 from multiprocessing import freeze_support
-import logger
+import logger_mqtt
 import socket
 # Thingsboard platform credentials
 # THINGSBOARD_HOST = '106.12.216.163'  # Change IP Address
@@ -29,7 +29,7 @@ telemetryTopic = 'v1/devices/me/telemetry'
 device = local()
 mqtt_client = {}
 thread_list = []
-_logger = logger.get_logger(__name__)
+_logger = logger_mqtt.get_logger(__name__)
 
 
 def on_log(client, userdata, level, buf):
