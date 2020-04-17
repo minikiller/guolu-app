@@ -1,6 +1,9 @@
 import  redis 
 import time
 import logger
+from socket import error as SocketError
+import errno
+
 """
 监听redis的guolu主题，发送修改参数的变量名称和数值给socket连接
 """
@@ -21,16 +24,24 @@ def sub_msg(conn=None):
         pub = redis_conn.pubsub(ignore_subscribe_messages=True)
         with pub:
             pub.subscribe('guolu')
-            while True:
-                msg = pub.get_message()
-                if msg and not redis_conn.exists('InitDevice'):
-                    _logger.info("get subscribe from redis, value is {}".format(msg['data']))
-                     
-                    if conn._closed:
-                        break
-                    else:
-                        conn.sendall(msg['data'])
-                
-                time.sleep(0.01)
+            try:
+                while True:
+                    msg = pub.get_message()
+                    if msg and not redis_conn.exists('InitDevice'):
+                        _logger.info("get subscribe from redis, value is {}".format(msg['data']))
+                        
+                        if conn._closed:
+                            _logger.error("socket client is closed!!")
+                    
+                            break
+                        else:
+                            conn.sendall(msg['data'])
+                    
+                    time.sleep(0.01)
+            except SocketError as e:
+                if e.errno != errno.ECONNRESET:
+                    _logger.error("socket client error is happened")
+                    raise # Not error we are looking for
+                pass # Handle error here.
                 
     
