@@ -3,13 +3,13 @@ import time
 import logger
 from socket import error as SocketError
 import errno
-
+import threading
 """
 监听redis的guolu主题，发送修改参数的变量名称和数值给socket连接
 """
 
 _logger=logger.get_logger(__name__)
-
+lock = threading.Lock()
 
 def sub_msg(conn=None):
     """监听guolu topic，当接受到数据的时候，发送数据给socket连接
@@ -34,7 +34,9 @@ def sub_msg(conn=None):
                     
                         #     break
                         # else:
+                        lock.acquire()
                         conn.append(msg['data'].decode())
+                        lock.release()
                     
                     time.sleep(0.01)
             except SocketError as e:
