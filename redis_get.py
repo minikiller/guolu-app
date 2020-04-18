@@ -34,7 +34,7 @@ def sub_msg(conn=None):
                     
                         #     break
                         # else:
-                        conn.append(msg['data'])
+                        conn.append(msg['data'].decode())
                     
                     time.sleep(0.01)
             except SocketError as e:

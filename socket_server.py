@@ -55,7 +55,7 @@ def link_handler(link, client):
                     break
                 elif client_data == "Polling":  # 负责接受tb端的参数修改
                     global mqtt_thread,queue
-                    if mqtt_thread is None or not mqtt_thread.isAlive():
+                    if mqtt_thread is None or not mqtt_thread.is_alive():
                         mqtt_thread = threading.Thread(
                             target=_redis.sub_msg, args=(queue,))
                         mqtt_thread.start()
