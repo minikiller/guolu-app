@@ -29,13 +29,12 @@ def sub_msg(conn=None):
                     msg = pub.get_message()
                     if msg and not redis_conn.exists('InitDevice'):
                         _logger.info("get subscribe from redis, value is {}".format(msg['data']))
-                        
-                        if conn._closed:
-                            _logger.error("socket client is closed!!")
+                        # if conn._closed:
+                        #     _logger.error("socket client is closed!!")
                     
-                            break
-                        else:
-                            conn.sendall(msg['data'])
+                        #     break
+                        # else:
+                        conn.append(msg['data'])
                     
                     time.sleep(0.01)
             except SocketError as e:

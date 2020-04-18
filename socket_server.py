@@ -15,6 +15,7 @@ import init_attribute
 
 thread_list = []
 mqtt_thread = None
+queue=[]
 _logger = logger.get_logger(__name__)
 
 
@@ -53,15 +54,19 @@ def link_handler(link, client):
                     _logger.info("结束与[%s:%s]的通信..." % (client[0], client[1]))
                     break
                 elif client_data == "Polling":  # 负责接受tb端的参数修改
-                    global mqtt_thread
+                    global mqtt_thread,queue
                     if mqtt_thread is None or not mqtt_thread.isAlive():
                         mqtt_thread = threading.Thread(
-                            target=_redis.sub_msg, args=(link,))
+                            target=_redis.sub_msg, args=(queue,))
                         mqtt_thread.start()
                     else:
                         pass
                     # elif mqtt_thread.isAlive():
-                    link.sendall(b'nop')
+                    if len(queue) > 0:
+                        link.sendall("%".join(queue).encode())
+                        queue.clear()
+                    else:
+                        link.sendall(b'nop')
                 elif "UpLoadPara" in client_data:  # 负责初始化设备的共享参数
                     temp_thread = threading.Thread(
                         target=init_attribute.send_param_to_tb, args=(client_data,))
