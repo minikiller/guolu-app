@@ -2,6 +2,17 @@ import json
 import requests
 import time
 from http import HTTPStatus
+"""
+tb api
+
+Raises:
+    ex: [description]
+    ValueError: [description]
+    ValueError: [description]
+
+Returns:
+    [type] -- [description]
+"""
 
 
 class TbApi:

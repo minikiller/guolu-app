@@ -11,14 +11,14 @@ import threading
 _logger=logger.get_logger(__name__)
 lock = threading.Lock()
 
-def sub_msg(conn=None):
+def sub_msg(queue=None):
     """监听guolu topic，当接受到数据的时候，发送数据给socket连接
     
     Keyword Arguments:
-        conn {[socket]} -- [socket 客户端连接] (default: {None})
+        queue {[]} -- 存储参数修改的数据列表
     """
-    if conn is None:
-        conn=[]
+    if queue is None:
+        queue=[]
     redis_conn = redis.StrictRedis(host='localhost', port=6379, db=0)
     with redis_conn:
         pub = redis_conn.pubsub(ignore_subscribe_messages=True)
@@ -29,13 +29,9 @@ def sub_msg(conn=None):
                     msg = pub.get_message()
                     if msg and not redis_conn.exists('InitDevice'):
                         _logger.info("get subscribe from redis, value is {}".format(msg['data']))
-                        # if conn._closed:
-                        #     _logger.error("socket client is closed!!")
-                    
-                        #     break
-                        # else:
+                        
                         lock.acquire()
-                        conn.append(msg['data'].decode())
+                        queue.append(msg['data'].decode())
                         lock.release()
                     
                     time.sleep(0.01)
