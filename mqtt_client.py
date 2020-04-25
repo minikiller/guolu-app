@@ -29,11 +29,12 @@ telemetryTopic = 'v1/devices/me/telemetry'
 device = local()
 mqtt_client = {}
 thread_list = []
+device_dict = {} #存储token和deviceid对应关系
 _logger = logger_mqtt.get_logger(__name__)
 
 
 def on_log(client, userdata, level, buf):
-    _logger.info("log: {},token is {}".format(buf,device._token))
+    _logger.info("log: {},token is {}".format(buf, device._token))
 
 
 def on_disconnect(client, userdata, rc):
@@ -59,23 +60,25 @@ def on_message(client, userdata, msg):
         # cur_thread = threading.current_thread()
         token = device._token
         data = Param.getInstance(token, **value)
-        _logger.info("prepare to send {}".format(data))
-        redis_conn.publish("guolu", str(data))
+        if data is not None:
+            _logger.info("prepare to send {}".format(data))
+            redis_conn.publish("guolu", str(data))
 
 
 def setup_conn(token):
     device._token = token
 
     client = mqtt.Client()
-    client.on_log=on_log # set client logging
+    client.on_log = on_log  # set client logging
     client.on_connect = on_connect
     client.on_message = on_message
     client.on_disconnect = on_disconnect
     client.enable_logger()
     client.username_pw_set(token)
-    client.user_data_set(token) # set userdata
+    client.user_data_set(token)  # set userdata
 
-    _logger.info("mqtt will connect to {},token will be used {}".format(THINGSBOARD_HOST,token))
+    _logger.info("mqtt will connect to {},token will be used {}".format(
+        THINGSBOARD_HOST, token))
 
     client.connect(THINGSBOARD_HOST, port=1883, keepalive=60)
     mqtt_client[token] = client
@@ -161,6 +164,7 @@ def runit():
 
 def main():
     try:
+        
         run_mqtt()
         # sub_redis()
     except Exception as e:

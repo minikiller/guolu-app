@@ -34,4 +34,6 @@ CLIENT_SCOPE
 slave-read-only no
 
 ## todo 
-write token data to mqtt userdata
+- write token data to mqtt userdata
+- 设置device的名字，通过参数配置
+- 参数配置传递token。

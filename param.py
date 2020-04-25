@@ -1,6 +1,7 @@
 from enum import Enum, unique
 import uuid
 import config
+from config import tbapi
 
 
 @unique
@@ -39,6 +40,7 @@ spec_param = ("P_Range", "T_Range", "KP_Range", "WP_Range",
               "In_Dia", "a_Kb", "a_Wg", "d_Kb",
               "d_Wg", "No_Pipe", "P_Value", "Dp_Kb", "Dp_Wg",
               "T_Value", "Dry_Value", "Qm_Value", "Acc_Qm_Value")
+device_dict = tbapi.get_device_token_deviceid_dict()
 
 
 class Param:
@@ -57,7 +59,13 @@ class Param:
     @classmethod
     def getInstance(cls, token, **params):
         index = config.TOKEN_ITEMS.get(token)
+
         for key in params:
+            if key == 'DeviceNum':
+                # device name change,not send to socket client
+                device_id = device_dict[token]
+                tbapi.change_device_name(device_id, params[key])
+                return None
             if key in general_param:
                 return cls(0, key, params[key])
             elif key in spec_param:

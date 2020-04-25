@@ -1,5 +1,6 @@
 from json import JSONEncoder
 import configparser
+import tbapi
 
 
 """系统的配置参数以及全局常量定义
@@ -11,6 +12,15 @@ config.read("guolu.conf", encoding="utf-8")
  
 THINGSBOARD_HOST = config.get("thingsboard", "host") #'106.12.216.163'
 HOST_IP = "http://{}:8080/".format(THINGSBOARD_HOST)
+
+HOST_URL = "http://{}:8080".format(THINGSBOARD_HOST)
+
+THINGSBOARD_USERNAME = config.get("auth", "username")
+THINGSBOARD_PASSWORD = config.get("auth", "password")
+
+# access tb api
+tbapi = tbapi.TbApi(HOST_URL, THINGSBOARD_USERNAME, THINGSBOARD_PASSWORD)
+
 
 device_A1 = config.get("thingsboard", "device_A1")
 device_A2 = config.get("thingsboard", "device_A2")

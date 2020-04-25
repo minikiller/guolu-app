@@ -284,6 +284,19 @@ class TbApi:
             else:
                 raise ex
 
+    def get_asset_by_name(self, asset_name):
+        """
+        Returns asset object representing the first asset found with the given name, or None if one can't be found
+        """
+        assets = self.get_tenant_assets()
+
+        # Fine exact match
+        for asset in assets:
+            if asset["name"] == asset_name:
+                return asset
+
+        return None
+
     def get_device_by_name(self, device_name):
         """
         Returns device object representing the first device found with the given name, or None if one can't be found
@@ -321,17 +334,29 @@ class TbApi:
         if shared_attributes is not None:
             self.set_shared_attributes(asset_id, shared_attributes)
 
-        return asset
+        return asset, asset_id
 
-    def add_device(self, device_name, device_type, shared_attributes, server_attributes):
+    def add_gateway_device(self, device_name, device_type, shared_attributes, server_attributes):
         """
-        Returns device object
+        sunlf add it to support gateway device
         """
-
         data = {
             "name": device_name,
             "type": device_type,
+            "additionalInfo": {"gateway": True}
         }
+        self.add_device(device_name, device_type,
+                        shared_attributes, server_attributes, data)
+
+    def add_device(self, device_name, device_type, shared_attributes, server_attributes, data: None):
+        """
+        Returns device object
+        """
+        if data is None:
+            data = {
+                "name": device_name,
+                "type": device_type,
+            }
 
         device = self.post("/api/device", data, "Error adding device")
         device_id = self.get_id(device)
@@ -342,7 +367,7 @@ class TbApi:
         if shared_attributes is not None:
             self.set_shared_attributes(device_id, shared_attributes)
 
-        return device
+        return device, device_id
 
     def get_asset_types(self):
         return self.get("/api/asset/types", "Error fetching list of all asset types")
@@ -584,8 +609,33 @@ class TbApi:
         """
         return self.delete(f"/api/device/{device_id}", f"Error deleting device '{device_id}'")
 
+    def get_device_token_deviceid_dict(self):
+        """
+        return device token and deviceid dict
+        """
+        token_deviceId_dict = {}
+        device_list = self.get_all_devices()
+        for device in device_list:
+            device_id = self.get_id(device)
+            device_token = self.get_device_token(device_id)
+            token_deviceId_dict[device_token] = device_id
+        return token_deviceId_dict
+
+    def change_device_name(self, device_id, device_name):
+        """
+        change device name
+
+        Arguments:
+            device_id {[type]} -- [description]
+            device_name {[type]} -- [description]
+        """
+        device = self.get_device_by_id(device_id)
+        device['name'] = device_name
+        self.post("/api/device", device, 'error set name')
+
     @staticmethod
     def pretty_print_request(req):
+
         print("{}\n{}\n{}\n\n{}".format("-----------START-----------", req.method + " " +
                                         req.url, "\n".join("{}: {}".format(k, v) for k, v in req.headers.items()), req.body, ))
 
