@@ -50,6 +50,9 @@ TOKEN_ITEMS = {
     device_A4: 4
 }
 
+# 获得token和deviceid的对应关系dict
+device_dict = tbapi.get_device_token_deviceid_dict()
+
 """用于json格式化dump的类
 
 Returns:

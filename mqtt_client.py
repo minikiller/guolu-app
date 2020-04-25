@@ -69,7 +69,7 @@ def setup_conn(token):
     device._token = token
 
     client = mqtt.Client()
-    client.on_log = on_log  # set client logging
+    # client.on_log = on_log  # set client logging
     client.on_connect = on_connect
     client.on_message = on_message
     client.on_disconnect = on_disconnect

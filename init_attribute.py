@@ -1,7 +1,7 @@
 
 import requests
 import json
-from config import HOST_IP, DataEncoder
+from config import HOST_IP, DataEncoder, tbapi
 import logger
 import attribute
 import redis_wrapper
@@ -81,14 +81,16 @@ def getAuth():
     headers['x-authorization'] = 'Bearer ' + token
     return headers
 
+
 def set_redis_key():
     """
     redis设置一个key，用来控制redis是否接受客户端的参数修改，过期时间为60s
     """
     r = redis_wrapper.RedisWrapper().redis_connect()
 
-    r.set('InitDevice', 'True') 
-    r.expire('InitDevice', 4) 
+    r.set('InitDevice', 'True')
+    r.expire('InitDevice', 4)
+
 
 def init_attribute(headers):
     r_data = json.dumps(shared_device_attribute, indent=4)
@@ -97,7 +99,7 @@ def init_attribute(headers):
         addr = shared_address.format(device_id)
         print("send addr is {}".format(addr))
 
-        r = requests.post(addr,data=r_data, headers=headers)
+        r = requests.post(addr, data=r_data, headers=headers)
         _logger.info(r.status_code)
 
 
@@ -113,6 +115,18 @@ def delete(headers):
         _logger.info(r.status_code)
 
 
+def set_device_name(device_id, device_name):
+    """
+    change device name based on device_id
+
+    Arguments:
+        device_name {[type]} -- [description]
+        device_id {[type]} -- [description]
+    """
+    _logger.info("begin to set device name {}".format(device_name))
+    tbapi.change_device_name(device_id, device_name)
+
+
 def send_param_to_tb(data):
     set_redis_key()
     groups = data.split("#")
@@ -124,9 +138,10 @@ def send_param_to_tb(data):
     data_list.append(general_att)
     _groups = groups[2:]
     for index, group in enumerate(_groups):
-        list=group.split(",")
+        list = group.split(",")
         _logger.info("spec attribute data is {}".format(list))
         spec_att = attribute.SpecAttribute(*list)
+        set_device_name(device_id_list[index+1], spec_att.No_Pipe)
         data_list.append(spec_att)
         # values = [float(x) for x in group.split(",")]
     headers = getAuth()
