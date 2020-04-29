@@ -1,0 +1,402 @@
+{
+  "title": "设备通用参数设置仪表盘",
+  "configuration": {
+    "widgets": {
+      "33497c66-e50c-b7ee-623a-cd62f61fc7e0": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_shared_double_attribute",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 9,
+        "sizeY": 4,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "Interval",
+                  "type": "attribute",
+                  "label": "时间间隔",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.808974432252971
+                }
+              ],
+              "entityAliasId": "02897765-9035-9e61-c791-ff5b41c7cca2"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "showResultMessage": true,
+            "showLabel": false
+          },
+          "title": "时间间隔",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "showTitleIcon": true,
+          "titleIcon": "import_export",
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "decimals": null,
+          "displayTimewindow": true
+        },
+        "id": "33497c66-e50c-b7ee-623a-cd62f61fc7e0"
+      },
+      "b49190da-1ec6-9281-cc17-df0d7863d7a0": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_shared_double_attribute",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 9,
+        "sizeY": 4,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "SampleNum",
+                  "type": "attribute",
+                  "label": "SampleNum",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.9549847440537138
+                }
+              ],
+              "entityAliasId": "02897765-9035-9e61-c791-ff5b41c7cca2"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "showResultMessage": true,
+            "showLabel": false
+          },
+          "title": "采样数量",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "showTitleIcon": true,
+          "titleIcon": "settings",
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "decimals": null,
+          "displayTimewindow": true
+        },
+        "id": "b49190da-1ec6-9281-cc17-df0d7863d7a0"
+      },
+      "5edc69c3-b048-f8f1-5a4c-16793e24d3dc": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_shared_double_attribute",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 9,
+        "sizeY": 4,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "Threshold",
+                  "type": "attribute",
+                  "label": "Threshold",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.6128978202614874
+                }
+              ],
+              "entityAliasId": "02897765-9035-9e61-c791-ff5b41c7cca2"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "showResultMessage": true,
+            "showLabel": false
+          },
+          "title": "显示阈值",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "showTitleIcon": true,
+          "titleIcon": "share",
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "decimals": null,
+          "displayTimewindow": true
+        },
+        "id": "5edc69c3-b048-f8f1-5a4c-16793e24d3dc"
+      },
+      "b34e565e-3172-1d44-822c-dc6847bb68a5": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_shared_double_attribute",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 9,
+        "sizeY": 4,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "Fluid",
+                  "type": "attribute",
+                  "label": "Fluid",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.35381863395824564
+                }
+              ],
+              "entityAliasId": "02897765-9035-9e61-c791-ff5b41c7cca2"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "showResultMessage": true,
+            "showLabel": false
+          },
+          "title": "被测介质",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "showTitleIcon": true,
+          "titleIcon": "pin_drop",
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "decimals": null,
+          "displayTimewindow": true
+        },
+        "id": "b34e565e-3172-1d44-822c-dc6847bb68a5"
+      },
+      "4b654f50-6d0e-55d2-f33b-139e0a3d7c34": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_shared_string_attribute",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 9,
+        "sizeY": 4,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "DeviceNum",
+                  "type": "attribute",
+                  "label": "DeviceNum",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.9282599802437459
+                }
+              ],
+              "entityAliasId": "02897765-9035-9e61-c791-ff5b41c7cca2"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "showResultMessage": true,
+            "showLabel": false
+          },
+          "title": "设备编号",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "enableDataExport": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "showTitleIcon": true,
+          "titleIcon": "info_outline",
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "displayTimewindow": true
+        },
+        "id": "4b654f50-6d0e-55d2-f33b-139e0a3d7c34"
+      }
+    },
+    "states": {
+      "default": {
+        "name": "设备通用参数设置仪表盘",
+        "root": true,
+        "layouts": {
+          "main": {
+            "widgets": {
+              "33497c66-e50c-b7ee-623a-cd62f61fc7e0": {
+                "sizeX": 9,
+                "sizeY": 4,
+                "row": 0,
+                "col": 0
+              },
+              "b49190da-1ec6-9281-cc17-df0d7863d7a0": {
+                "sizeX": 9,
+                "sizeY": 4,
+                "row": 0,
+                "col": 9
+              },
+              "5edc69c3-b048-f8f1-5a4c-16793e24d3dc": {
+                "sizeX": 9,
+                "sizeY": 4,
+                "row": 4,
+                "col": 0
+              },
+              "b34e565e-3172-1d44-822c-dc6847bb68a5": {
+                "sizeX": 9,
+                "sizeY": 4,
+                "row": 8,
+                "col": 0
+              },
+              "4b654f50-6d0e-55d2-f33b-139e0a3d7c34": {
+                "sizeX": 9,
+                "sizeY": 4,
+                "row": 4,
+                "col": 9
+              }
+            },
+            "gridSettings": {
+              "backgroundColor": "#eeeeee",
+              "color": "rgba(0,0,0,0.870588)",
+              "columns": 24,
+              "margins": [
+                10,
+                10
+              ],
+              "backgroundSizeMode": "100%"
+            }
+          }
+        }
+      }
+    },
+    "entityAliases": {
+      "02897765-9035-9e61-c791-ff5b41c7cca2": {
+        "id": "02897765-9035-9e61-c791-ff5b41c7cca2",
+        "alias": "generalEntity",
+        "filter": {
+          "type": "singleEntity",
+          "resolveMultiple": false,
+          "singleEntity": {
+            "entityType": "DEVICE",
+            "id": "fe3d1840-5aa2-11ea-b86d-79a79971f7b7"
+          }
+        }
+      }
+    },
+    "timewindow": {
+      "displayValue": "",
+      "selectedTab": 0,
+      "hideInterval": false,
+      "hideAggregation": false,
+      "hideAggInterval": false,
+      "realtime": {
+        "interval": 1000,
+        "timewindowMs": 60000
+      },
+      "history": {
+        "historyType": 0,
+        "interval": 1000,
+        "timewindowMs": 60000,
+        "fixedTimewindow": {
+          "startTimeMs": 1586430405907,
+          "endTimeMs": 1586516805907
+        }
+      },
+      "aggregation": {
+        "type": "AVG",
+        "limit": 25000
+      }
+    },
+    "settings": {
+      "stateControllerId": "entity",
+      "showTitle": false,
+      "showDashboardsSelect": true,
+      "showEntitiesSelect": true,
+      "showDashboardTimewindow": true,
+      "showDashboardExport": true,
+      "toolbarAlwaysOpen": true
+    }
+  },
+  "name": "设备通用参数设置仪表盘"
+}

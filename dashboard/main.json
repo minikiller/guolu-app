@@ -1,0 +1,2214 @@
+{
+  "title": "湿蒸汽测量装置仪表盘",
+  "configuration": {
+    "widgets": {
+      "37d10c7f-460a-3976-190d-19fc000da2f3": {
+        "isSystemType": true,
+        "bundleAlias": "cards",
+        "typeAlias": "entities_table",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 24,
+        "sizeY": 7,
+        "config": {
+          "timewindow": {
+            "realtime": {
+              "interval": 1000,
+              "timewindowMs": 86400000
+            },
+            "aggregation": {
+              "type": "NONE",
+              "limit": 200
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "rgb(255, 255, 255)",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "4px",
+          "settings": {
+            "enableSearch": true,
+            "displayPagination": true,
+            "defaultPageSize": 10,
+            "defaultSortOrder": "entityName",
+            "displayEntityName": true,
+            "displayEntityType": false,
+            "enableSelectColumnDisplay": true,
+            "entitiesTitle": "实时数据"
+          },
+          "title": "实时数据",
+          "dropShadow": true,
+          "enableFullscreen": true,
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400,
+            "padding": "5px 10px 5px 10px"
+          },
+          "useDashboardTimewindow": false,
+          "showLegend": false,
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "P_Value",
+                  "type": "timeseries",
+                  "label": "工作压力",
+                  "color": "#2196f3",
+                  "settings": {
+                    "columnWidth": "0px",
+                    "useCellStyleFunction": false,
+                    "useCellContentFunction": false
+                  },
+                  "_hash": 0.8493282231162964,
+                  "units": "MPa"
+                },
+                {
+                  "name": "T_Value",
+                  "type": "timeseries",
+                  "label": "工作温度",
+                  "color": "#4caf50",
+                  "settings": {
+                    "columnWidth": "0px",
+                    "useCellStyleFunction": false,
+                    "useCellContentFunction": false
+                  },
+                  "_hash": 0.9347687977608379,
+                  "units": "℃"
+                },
+                {
+                  "name": "Dry_Value",
+                  "type": "timeseries",
+                  "label": "蒸汽干度",
+                  "color": "#f44336",
+                  "settings": {
+                    "columnWidth": "0px",
+                    "useCellStyleFunction": false,
+                    "useCellContentFunction": false
+                  },
+                  "_hash": 0.31535189161227284,
+                  "units": "%"
+                },
+                {
+                  "name": "Qm_Value",
+                  "type": "timeseries",
+                  "label": "质量流量",
+                  "color": "#ffc107",
+                  "settings": {
+                    "columnWidth": "0px",
+                    "useCellStyleFunction": false,
+                    "useCellContentFunction": false
+                  },
+                  "_hash": 0.41885946169694344,
+                  "units": "t/h"
+                },
+                {
+                  "name": "Qh_Value",
+                  "type": "timeseries",
+                  "label": "热量流量",
+                  "color": "#607d8b",
+                  "settings": {
+                    "columnWidth": "0px",
+                    "useCellStyleFunction": false,
+                    "useCellContentFunction": false
+                  },
+                  "_hash": 0.407864132854997,
+                  "units": "GJ/h"
+                },
+                {
+                  "name": "Acc_Qm_Value",
+                  "type": "timeseries",
+                  "label": "累积流量",
+                  "color": "#9c27b0",
+                  "settings": {
+                    "columnWidth": "0px",
+                    "useCellStyleFunction": false,
+                    "useCellContentFunction": false
+                  },
+                  "_hash": 0.607527947865709
+                },
+                {
+                  "name": "Qh_Qh_Value",
+                  "type": "timeseries",
+                  "label": "载热流量",
+                  "color": "#8bc34a",
+                  "settings": {
+                    "columnWidth": "0px",
+                    "useCellStyleFunction": false,
+                    "useCellContentFunction": false
+                  },
+                  "_hash": 0.3122760205050015
+                },
+                {
+                  "name": "Deltp_KB",
+                  "type": "timeseries",
+                  "label": "孔板差压",
+                  "color": "#3f51b5",
+                  "settings": {
+                    "columnWidth": "0px",
+                    "useCellStyleFunction": false,
+                    "useCellContentFunction": false
+                  },
+                  "_hash": 0.6177894223087115
+                },
+                {
+                  "name": "Deltp_WG",
+                  "type": "timeseries",
+                  "label": "文管差压",
+                  "color": "#e91e63",
+                  "settings": {
+                    "columnWidth": "0px",
+                    "useCellStyleFunction": false,
+                    "useCellContentFunction": false
+                  },
+                  "_hash": 0.7569184378137397
+                }
+              ],
+              "entityAliasId": "51715b6d-970d-28dd-8f75-5207abb6cad6"
+            }
+          ],
+          "showTitleIcon": false,
+          "titleIcon": null,
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "widgetStyle": {},
+          "displayTimewindow": true,
+          "actions": {
+            "rowClick": [
+              {
+                "id": "def4c875-9f46-c66c-3265-06bedf9172dd",
+                "name": "detail action",
+                "icon": "more_horiz",
+                "type": "openDashboardState",
+                "targetDashboardStateId": "measure_detail",
+                "setEntityId": true
+              }
+            ],
+            "actionCellButton": [
+              {
+                "id": "56011c54-a109-7339-a2cf-727f564c875b",
+                "name": "参数",
+                "icon": "more_horiz",
+                "type": "openDashboardState",
+                "targetDashboardStateId": "attribute",
+                "setEntityId": true
+              },
+              {
+                "id": "e054a798-e10e-1220-b10f-99cfa010a072",
+                "name": "详细",
+                "icon": "info_outline",
+                "type": "openDashboardState",
+                "targetDashboardStateId": "measure_detail",
+                "setEntityId": true
+              }
+            ]
+          }
+        },
+        "id": "37d10c7f-460a-3976-190d-19fc000da2f3"
+      },
+      "08907e80-7c1f-ec9d-78af-e51403b35a8f": {
+        "isSystemType": true,
+        "bundleAlias": "cards",
+        "typeAlias": "timeseries_table",
+        "type": "timeseries",
+        "title": "New widget",
+        "sizeX": 24,
+        "sizeY": 8,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "P_Value",
+                  "type": "timeseries",
+                  "label": "工作压力",
+                  "color": "#2196f3",
+                  "settings": {
+                    "useCellStyleFunction": false,
+                    "useCellContentFunction": false
+                  },
+                  "_hash": 0.7687186727487518,
+                  "units": "MPa",
+                  "decimals": 2
+                },
+                {
+                  "name": "T_Value",
+                  "type": "timeseries",
+                  "label": "工作温度",
+                  "color": "#4caf50",
+                  "settings": {
+                    "useCellStyleFunction": false,
+                    "useCellContentFunction": false
+                  },
+                  "_hash": 0.5257915743810719,
+                  "units": "℃",
+                  "decimals": 2
+                },
+                {
+                  "name": "Dry_Value",
+                  "type": "timeseries",
+                  "label": "蒸汽干度",
+                  "color": "#f44336",
+                  "settings": {
+                    "useCellStyleFunction": false,
+                    "useCellContentFunction": false
+                  },
+                  "_hash": 0.5270833202166658,
+                  "units": "%",
+                  "decimals": 2
+                },
+                {
+                  "name": "Qm_Value",
+                  "type": "timeseries",
+                  "label": "质量流量",
+                  "color": "#ffc107",
+                  "settings": {
+                    "useCellStyleFunction": false,
+                    "useCellContentFunction": false
+                  },
+                  "_hash": 0.6358306112707275,
+                  "units": "t/h",
+                  "decimals": 2
+                },
+                {
+                  "name": "Qh_Value",
+                  "type": "timeseries",
+                  "label": "热量流量",
+                  "color": "#607d8b",
+                  "settings": {
+                    "useCellStyleFunction": false,
+                    "useCellContentFunction": false
+                  },
+                  "_hash": 0.586430036483651,
+                  "units": "GJ/h",
+                  "decimals": 2
+                }
+              ],
+              "entityAliasId": "2c54a354-34bb-db71-12cb-a7476fe0e5e8"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "interval": 1000,
+              "timewindowMs": 3600000
+            },
+            "aggregation": {
+              "type": "NONE",
+              "limit": 1532
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "rgb(255, 255, 255)",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "showTimestamp": true,
+            "displayPagination": true,
+            "defaultPageSize": 10
+          },
+          "title": "历史数据",
+          "dropShadow": true,
+          "enableFullscreen": true,
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": false,
+          "showLegend": false,
+          "widgetStyle": {},
+          "actions": {},
+          "showTitleIcon": false,
+          "titleIcon": null,
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "decimals": 2,
+          "displayTimewindow": true
+        },
+        "id": "08907e80-7c1f-ec9d-78af-e51403b35a8f"
+      },
+      "a0c8c69a-59a5-3f1e-0d18-954bc81d8b91": {
+        "isSystemType": true,
+        "bundleAlias": "charts",
+        "typeAlias": "basic_timeseries",
+        "type": "timeseries",
+        "title": "New widget",
+        "sizeX": 19,
+        "sizeY": 6,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "P_Value",
+                  "type": "timeseries",
+                  "label": "工作压力",
+                  "color": "#2196f3",
+                  "settings": {
+                    "excludeFromStacking": false,
+                    "hideDataByDefault": false,
+                    "disableDataHiding": false,
+                    "removeFromLegend": false,
+                    "showLines": true,
+                    "fillLines": false,
+                    "showPoints": false,
+                    "showPointShape": "circle",
+                    "pointShapeFormatter": "var size = radius * Math.sqrt(Math.PI) / 2;\nctx.moveTo(x - size, y - size);\nctx.lineTo(x + size, y + size);\nctx.moveTo(x - size, y + size);\nctx.lineTo(x + size, y - size);",
+                    "showPointsLineWidth": 5,
+                    "showPointsRadius": 3,
+                    "showSeparateAxis": false,
+                    "axisPosition": "left",
+                    "comparisonSettings": {
+                      "showValuesForComparison": true
+                    }
+                  },
+                  "_hash": 0.023417309743858583,
+                  "units": "",
+                  "decimals": 2
+                }
+              ],
+              "entityAliasId": "e4015571-a5de-746b-3c7c-18d25629926a"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "interval": 10000,
+              "timewindowMs": 3600000
+            },
+            "aggregation": {
+              "type": "AVG",
+              "limit": 25000
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "shadowSize": 4,
+            "fontColor": "#545454",
+            "fontSize": 10,
+            "xaxis": {
+              "showLabels": true,
+              "color": "#545454"
+            },
+            "yaxis": {
+              "showLabels": true,
+              "color": "#545454"
+            },
+            "grid": {
+              "color": "#545454",
+              "tickColor": "#DDDDDD",
+              "verticalLines": true,
+              "horizontalLines": true,
+              "outlineWidth": 1
+            },
+            "stack": false,
+            "tooltipIndividual": false,
+            "timeForComparison": "months",
+            "xaxisSecond": {
+              "axisPosition": "top",
+              "showLabels": true
+            },
+            "smoothLines": true
+          },
+          "title": "工作压力---历史数据曲线",
+          "dropShadow": true,
+          "enableFullscreen": true,
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "mobileHeight": null,
+          "showTitleIcon": false,
+          "titleIcon": null,
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "widgetStyle": {},
+          "decimals": 2,
+          "useDashboardTimewindow": false,
+          "displayTimewindow": true,
+          "showLegend": true,
+          "legendConfig": {
+            "direction": "row",
+            "position": "bottom",
+            "showMin": false,
+            "showMax": false,
+            "showAvg": false,
+            "showTotal": false
+          },
+          "actions": {}
+        },
+        "id": "a0c8c69a-59a5-3f1e-0d18-954bc81d8b91"
+      },
+      "e71d656c-423a-bc82-5d86-c7d5d61fdef7": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_shared_double_attribute",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 6,
+        "sizeY": 3,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "P_Range",
+                  "type": "attribute",
+                  "label": "P_Range",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.6954389713405937
+                }
+              ],
+              "entityAliasId": "e4015571-a5de-746b-3c7c-18d25629926a"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "showResultMessage": true,
+            "showLabel": false,
+            "minValue": 0,
+            "maxValue": 32
+          },
+          "title": "压力量程(Mpa)",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "showTitleIcon": true,
+          "titleIcon": "list",
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "displayTimewindow": true,
+          "units": "",
+          "decimals": 0
+        },
+        "id": "e71d656c-423a-bc82-5d86-c7d5d61fdef7"
+      },
+      "18b3e1b9-47a7-3853-9b4e-886e63c0e8fa": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_shared_double_attribute",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 6,
+        "sizeY": 3,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "T_Range",
+                  "type": "attribute",
+                  "label": "T_Range",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.6215976452605556
+                }
+              ],
+              "entityAliasId": "e4015571-a5de-746b-3c7c-18d25629926a"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "showResultMessage": true,
+            "showLabel": false,
+            "labelValue": "测试",
+            "minValue": 0,
+            "maxValue": 500
+          },
+          "title": "温度量程(℃)",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "showTitleIcon": true,
+          "titleIcon": "list",
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "displayTimewindow": true
+        },
+        "id": "18b3e1b9-47a7-3853-9b4e-886e63c0e8fa"
+      },
+      "77fcdde7-b856-2d8c-a62d-d398b06235af": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_shared_double_attribute",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 6,
+        "sizeY": 3,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "KP_Range",
+                  "type": "attribute",
+                  "label": "KP_Range",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.23782914473699646
+                }
+              ],
+              "entityAliasId": "e4015571-a5de-746b-3c7c-18d25629926a"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "showResultMessage": true,
+            "showLabel": false,
+            "minValue": 0,
+            "maxValue": 500
+          },
+          "title": "孔板差压量程(Kpa)",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "showTitleIcon": true,
+          "titleIcon": "list",
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "displayTimewindow": true
+        },
+        "id": "77fcdde7-b856-2d8c-a62d-d398b06235af"
+      },
+      "78ed136a-6673-f174-2cb8-19642cb38c7c": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_shared_double_attribute",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 6,
+        "sizeY": 3,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "In_Dia",
+                  "type": "attribute",
+                  "label": "In_Dia",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.9064691220666661
+                }
+              ],
+              "entityAliasId": "e4015571-a5de-746b-3c7c-18d25629926a"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "showResultMessage": true,
+            "showLabel": false
+          },
+          "title": "管道内径(mm)",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "showTitleIcon": true,
+          "titleIcon": "list",
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "displayTimewindow": true
+        },
+        "id": "78ed136a-6673-f174-2cb8-19642cb38c7c"
+      },
+      "8d9e4c15-f1d6-013a-d0cd-2c094ff73e5f": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_shared_double_attribute",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 6,
+        "sizeY": 3,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "WP_Range",
+                  "type": "attribute",
+                  "label": "WP_Range",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.37379417172538676
+                }
+              ],
+              "entityAliasId": "e4015571-a5de-746b-3c7c-18d25629926a"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "showResultMessage": true,
+            "showLabel": false,
+            "minValue": 0,
+            "maxValue": 500
+          },
+          "title": "文管差压量程(Kpa)",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "showTitleIcon": true,
+          "titleIcon": "list",
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "displayTimewindow": true
+        },
+        "id": "8d9e4c15-f1d6-013a-d0cd-2c094ff73e5f"
+      },
+      "def85aaa-c3cb-8de1-aeb9-594b1636af7c": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_shared_double_attribute",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 6,
+        "sizeY": 3,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "a_Kb",
+                  "type": "attribute",
+                  "label": "a_Kb",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.3697190798051282
+                }
+              ],
+              "entityAliasId": "e4015571-a5de-746b-3c7c-18d25629926a"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "showResultMessage": true,
+            "showLabel": false,
+            "minValue": 0.5,
+            "maxValue": 1
+          },
+          "title": "孔板系数(无量纲)",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "showTitleIcon": true,
+          "titleIcon": "list",
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "displayTimewindow": true
+        },
+        "id": "def85aaa-c3cb-8de1-aeb9-594b1636af7c"
+      },
+      "3f403315-f90d-f5d7-9da7-11d845fbf477": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_shared_double_attribute",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 6,
+        "sizeY": 3,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "a_Wg",
+                  "type": "attribute",
+                  "label": "a_Wg",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.23861058803697155
+                }
+              ],
+              "entityAliasId": "e4015571-a5de-746b-3c7c-18d25629926a"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "showResultMessage": true,
+            "showLabel": false,
+            "minValue": 0.5,
+            "maxValue": 1.5
+          },
+          "title": "文管系数(无量纲)",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "showTitleIcon": true,
+          "titleIcon": "list",
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "displayTimewindow": true
+        },
+        "id": "3f403315-f90d-f5d7-9da7-11d845fbf477"
+      },
+      "f8f1e881-00a7-5c6f-e12d-94a4638cbc85": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_shared_double_attribute",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 6,
+        "sizeY": 3,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "d_Kb",
+                  "type": "attribute",
+                  "label": "d_Kb",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.36674776719221724
+                }
+              ],
+              "entityAliasId": "e4015571-a5de-746b-3c7c-18d25629926a"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "showResultMessage": true,
+            "showLabel": false
+          },
+          "title": "孔板喉径(mm)",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "showTitleIcon": true,
+          "titleIcon": "list",
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "displayTimewindow": true
+        },
+        "id": "f8f1e881-00a7-5c6f-e12d-94a4638cbc85"
+      },
+      "8f60207d-780f-8087-37be-dc2ebc345f30": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_shared_double_attribute",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 6,
+        "sizeY": 3,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "d_Wg",
+                  "type": "attribute",
+                  "label": "d_Wg",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.28248969077801145
+                }
+              ],
+              "entityAliasId": "e4015571-a5de-746b-3c7c-18d25629926a"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "showResultMessage": true,
+            "showLabel": false
+          },
+          "title": "文管喉径",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "showTitleIcon": true,
+          "titleIcon": "list",
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "displayTimewindow": true
+        },
+        "id": "8f60207d-780f-8087-37be-dc2ebc345f30"
+      },
+      "ddf95109-daab-7fd6-5c7a-a753b3e4a1c7": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_shared_double_attribute",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 6,
+        "sizeY": 3,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "P_Value",
+                  "type": "attribute",
+                  "label": "P_Value",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.6745921899078364
+                }
+              ],
+              "entityAliasId": "e4015571-a5de-746b-3c7c-18d25629926a"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "showResultMessage": true,
+            "showLabel": false
+          },
+          "title": "压力值",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "showTitleIcon": true,
+          "titleIcon": "list",
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "displayTimewindow": true
+        },
+        "id": "ddf95109-daab-7fd6-5c7a-a753b3e4a1c7"
+      },
+      "b574bd35-1cd6-4248-b758-974e6e6406ec": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_shared_double_attribute",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 6,
+        "sizeY": 3,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "Dry_Value",
+                  "type": "attribute",
+                  "label": "Dry_Value",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.5586668304115789
+                }
+              ],
+              "entityAliasId": "e4015571-a5de-746b-3c7c-18d25629926a"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "showResultMessage": true,
+            "showLabel": false
+          },
+          "title": "干度值",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "showTitleIcon": true,
+          "titleIcon": "list",
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "displayTimewindow": true
+        },
+        "id": "b574bd35-1cd6-4248-b758-974e6e6406ec"
+      },
+      "e7d5abdb-7e9d-94d7-e60c-410b40859a53": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_shared_double_attribute",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 6,
+        "sizeY": 3,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "Qm_Value",
+                  "type": "attribute",
+                  "label": "Qm_Value",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.21363267403502784
+                }
+              ],
+              "entityAliasId": "e4015571-a5de-746b-3c7c-18d25629926a"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "showResultMessage": true,
+            "showLabel": false
+          },
+          "title": "流量值",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "showTitleIcon": true,
+          "titleIcon": "list",
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "displayTimewindow": true
+        },
+        "id": "e7d5abdb-7e9d-94d7-e60c-410b40859a53"
+      },
+      "03429051-8981-0934-039c-db85a1bbf1e7": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_shared_double_attribute",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 6,
+        "sizeY": 3,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "Acc_Qm_Value",
+                  "type": "attribute",
+                  "label": "Acc_Qm_Value",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.7458792154949812
+                }
+              ],
+              "entityAliasId": "e4015571-a5de-746b-3c7c-18d25629926a"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "showResultMessage": true,
+            "showLabel": false
+          },
+          "title": "累积流量值",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "showTitleIcon": true,
+          "titleIcon": "list",
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "displayTimewindow": true
+        },
+        "id": "03429051-8981-0934-039c-db85a1bbf1e7"
+      },
+      "8670fc00-1833-d33a-b250-49a5ba8ec814": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_shared_double_attribute",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 6,
+        "sizeY": 3,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "Dp_Kb",
+                  "type": "attribute",
+                  "label": "Dp_Kb",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.3384700510127223
+                }
+              ],
+              "entityAliasId": "e4015571-a5de-746b-3c7c-18d25629926a"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "showResultMessage": true,
+            "showLabel": false
+          },
+          "title": "孔板差压值",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "showTitleIcon": true,
+          "titleIcon": "list",
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "displayTimewindow": true
+        },
+        "id": "8670fc00-1833-d33a-b250-49a5ba8ec814"
+      },
+      "11891a82-001c-f683-bb49-163d1d020e26": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_shared_double_attribute",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 6,
+        "sizeY": 3,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "T_Value",
+                  "type": "attribute",
+                  "label": "T_Value",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.11094917219829026
+                }
+              ],
+              "entityAliasId": "e4015571-a5de-746b-3c7c-18d25629926a"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "showResultMessage": true,
+            "showLabel": false
+          },
+          "title": "温度值",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "showTitleIcon": true,
+          "titleIcon": "list",
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "displayTimewindow": true
+        },
+        "id": "11891a82-001c-f683-bb49-163d1d020e26"
+      },
+      "13a9110e-658e-db6a-0f16-cc674d4027fc": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_shared_double_attribute",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 6,
+        "sizeY": 3,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "Dp_Wg",
+                  "type": "attribute",
+                  "label": "Dp_Wg",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.670866114804958
+                }
+              ],
+              "entityAliasId": "e4015571-a5de-746b-3c7c-18d25629926a"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "showResultMessage": true,
+            "showLabel": false
+          },
+          "title": "文管差压值",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "showTitleIcon": true,
+          "titleIcon": "list",
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "displayTimewindow": true
+        },
+        "id": "13a9110e-658e-db6a-0f16-cc674d4027fc"
+      },
+      "1ade88f1-e1c8-737c-2f4e-d693bfc851a5": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_shared_string_attribute",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 6,
+        "sizeY": 3,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "No_Pipe",
+                  "type": "attribute",
+                  "label": "No_Pipe",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.9629550922771455
+                }
+              ],
+              "entityAliasId": "e4015571-a5de-746b-3c7c-18d25629926a"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "showResultMessage": true,
+            "showLabel": false
+          },
+          "title": "安装位置",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "enableDataExport": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "showTitleIcon": true,
+          "titleIcon": "list",
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "displayTimewindow": true
+        },
+        "id": "1ade88f1-e1c8-737c-2f4e-d693bfc851a5"
+      },
+      "f7911975-c5a2-043d-8659-4373ffb628a3": {
+        "isSystemType": true,
+        "bundleAlias": "charts",
+        "typeAlias": "basic_timeseries",
+        "type": "timeseries",
+        "title": "New widget",
+        "sizeX": 19,
+        "sizeY": 6,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "T_Value",
+                  "type": "timeseries",
+                  "label": "工作温度",
+                  "color": "#4caf50",
+                  "settings": {
+                    "excludeFromStacking": false,
+                    "hideDataByDefault": false,
+                    "disableDataHiding": false,
+                    "removeFromLegend": false,
+                    "showLines": true,
+                    "fillLines": false,
+                    "showPoints": false,
+                    "showPointShape": "circle",
+                    "pointShapeFormatter": "var size = radius * Math.sqrt(Math.PI) / 2;\nctx.moveTo(x - size, y - size);\nctx.lineTo(x + size, y + size);\nctx.moveTo(x - size, y + size);\nctx.lineTo(x + size, y - size);",
+                    "showPointsLineWidth": 5,
+                    "showPointsRadius": 3,
+                    "showSeparateAxis": false,
+                    "axisPosition": "left",
+                    "comparisonSettings": {
+                      "showValuesForComparison": true
+                    }
+                  },
+                  "_hash": 0.6321887348298529,
+                  "units": "",
+                  "decimals": 2
+                }
+              ],
+              "entityAliasId": "e4015571-a5de-746b-3c7c-18d25629926a"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "interval": 10000,
+              "timewindowMs": 3600000
+            },
+            "aggregation": {
+              "type": "AVG",
+              "limit": 25000
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "shadowSize": 4,
+            "fontColor": "#545454",
+            "fontSize": 10,
+            "xaxis": {
+              "showLabels": true,
+              "color": "#545454"
+            },
+            "yaxis": {
+              "showLabels": true,
+              "color": "#545454"
+            },
+            "grid": {
+              "color": "#545454",
+              "tickColor": "#DDDDDD",
+              "verticalLines": true,
+              "horizontalLines": true,
+              "outlineWidth": 1
+            },
+            "stack": false,
+            "tooltipIndividual": false,
+            "timeForComparison": "months",
+            "xaxisSecond": {
+              "axisPosition": "top",
+              "showLabels": true
+            },
+            "smoothLines": true
+          },
+          "title": "工作温度---历史数据曲线",
+          "dropShadow": true,
+          "enableFullscreen": true,
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "mobileHeight": null,
+          "showTitleIcon": false,
+          "titleIcon": null,
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "widgetStyle": {},
+          "decimals": 2,
+          "useDashboardTimewindow": false,
+          "displayTimewindow": true,
+          "showLegend": true,
+          "legendConfig": {
+            "direction": "row",
+            "position": "bottom",
+            "showMin": false,
+            "showMax": false,
+            "showAvg": false,
+            "showTotal": false
+          },
+          "actions": {}
+        },
+        "id": "f7911975-c5a2-043d-8659-4373ffb628a3"
+      },
+      "ec731749-afed-7883-df0d-fc208d8f5c27": {
+        "isSystemType": true,
+        "bundleAlias": "charts",
+        "typeAlias": "basic_timeseries",
+        "type": "timeseries",
+        "title": "New widget",
+        "sizeX": 19,
+        "sizeY": 6,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "Dry_Value",
+                  "type": "timeseries",
+                  "label": "蒸汽干度",
+                  "color": "#f44336",
+                  "settings": {
+                    "excludeFromStacking": false,
+                    "hideDataByDefault": false,
+                    "disableDataHiding": false,
+                    "removeFromLegend": false,
+                    "showLines": true,
+                    "fillLines": false,
+                    "showPoints": false,
+                    "showPointShape": "circle",
+                    "pointShapeFormatter": "var size = radius * Math.sqrt(Math.PI) / 2;\nctx.moveTo(x - size, y - size);\nctx.lineTo(x + size, y + size);\nctx.moveTo(x - size, y + size);\nctx.lineTo(x + size, y - size);",
+                    "showPointsLineWidth": 5,
+                    "showPointsRadius": 3,
+                    "showSeparateAxis": false,
+                    "axisPosition": "left",
+                    "comparisonSettings": {
+                      "showValuesForComparison": true
+                    }
+                  },
+                  "_hash": 0.8176092256395107,
+                  "units": "",
+                  "decimals": 2
+                }
+              ],
+              "entityAliasId": "e4015571-a5de-746b-3c7c-18d25629926a"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "interval": 10000,
+              "timewindowMs": 3600000
+            },
+            "aggregation": {
+              "type": "AVG",
+              "limit": 25000
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "shadowSize": 4,
+            "fontColor": "#545454",
+            "fontSize": 10,
+            "xaxis": {
+              "showLabels": true,
+              "color": "#545454"
+            },
+            "yaxis": {
+              "showLabels": true,
+              "color": "#545454"
+            },
+            "grid": {
+              "color": "#545454",
+              "tickColor": "#DDDDDD",
+              "verticalLines": true,
+              "horizontalLines": true,
+              "outlineWidth": 1
+            },
+            "stack": false,
+            "tooltipIndividual": false,
+            "timeForComparison": "months",
+            "xaxisSecond": {
+              "axisPosition": "top",
+              "showLabels": true
+            },
+            "smoothLines": true
+          },
+          "title": "蒸汽干度---历史数据曲线",
+          "dropShadow": true,
+          "enableFullscreen": true,
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "mobileHeight": null,
+          "showTitleIcon": false,
+          "titleIcon": null,
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "widgetStyle": {},
+          "decimals": 2,
+          "useDashboardTimewindow": false,
+          "displayTimewindow": true,
+          "showLegend": true,
+          "legendConfig": {
+            "direction": "row",
+            "position": "bottom",
+            "showMin": false,
+            "showMax": false,
+            "showAvg": false,
+            "showTotal": false
+          },
+          "actions": {}
+        },
+        "id": "ec731749-afed-7883-df0d-fc208d8f5c27"
+      },
+      "56d9cb72-d21a-9e17-6163-5511be371e81": {
+        "isSystemType": true,
+        "bundleAlias": "charts",
+        "typeAlias": "basic_timeseries",
+        "type": "timeseries",
+        "title": "New widget",
+        "sizeX": 19,
+        "sizeY": 6,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "Qm_Value",
+                  "type": "timeseries",
+                  "label": "质量流量",
+                  "color": "#ffc107",
+                  "settings": {
+                    "excludeFromStacking": false,
+                    "hideDataByDefault": false,
+                    "disableDataHiding": false,
+                    "removeFromLegend": false,
+                    "showLines": true,
+                    "fillLines": false,
+                    "showPoints": false,
+                    "showPointShape": "circle",
+                    "pointShapeFormatter": "var size = radius * Math.sqrt(Math.PI) / 2;\nctx.moveTo(x - size, y - size);\nctx.lineTo(x + size, y + size);\nctx.moveTo(x - size, y + size);\nctx.lineTo(x + size, y - size);",
+                    "showPointsLineWidth": 5,
+                    "showPointsRadius": 3,
+                    "showSeparateAxis": false,
+                    "axisPosition": "left",
+                    "comparisonSettings": {
+                      "showValuesForComparison": true
+                    }
+                  },
+                  "_hash": 0.6843218735178966,
+                  "units": "",
+                  "decimals": 2
+                }
+              ],
+              "entityAliasId": "e4015571-a5de-746b-3c7c-18d25629926a"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "interval": 10000,
+              "timewindowMs": 3600000
+            },
+            "aggregation": {
+              "type": "AVG",
+              "limit": 25000
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "shadowSize": 4,
+            "fontColor": "#545454",
+            "fontSize": 10,
+            "xaxis": {
+              "showLabels": true,
+              "color": "#545454"
+            },
+            "yaxis": {
+              "showLabels": true,
+              "color": "#545454"
+            },
+            "grid": {
+              "color": "#545454",
+              "tickColor": "#DDDDDD",
+              "verticalLines": true,
+              "horizontalLines": true,
+              "outlineWidth": 1
+            },
+            "stack": false,
+            "tooltipIndividual": false,
+            "timeForComparison": "months",
+            "xaxisSecond": {
+              "axisPosition": "top",
+              "showLabels": true
+            },
+            "smoothLines": true
+          },
+          "title": "质量流量---历史数据曲线",
+          "dropShadow": true,
+          "enableFullscreen": true,
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "mobileHeight": null,
+          "showTitleIcon": false,
+          "titleIcon": null,
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "widgetStyle": {},
+          "decimals": 2,
+          "useDashboardTimewindow": false,
+          "displayTimewindow": true,
+          "showLegend": true,
+          "legendConfig": {
+            "direction": "row",
+            "position": "bottom",
+            "showMin": false,
+            "showMax": false,
+            "showAvg": false,
+            "showTotal": false
+          },
+          "actions": {}
+        },
+        "id": "56d9cb72-d21a-9e17-6163-5511be371e81"
+      },
+      "dd350e0e-abca-5dc9-58d8-9c041c0eea1f": {
+        "isSystemType": true,
+        "bundleAlias": "charts",
+        "typeAlias": "basic_timeseries",
+        "type": "timeseries",
+        "title": "New widget",
+        "sizeX": 19,
+        "sizeY": 6,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "Qh_Value",
+                  "type": "timeseries",
+                  "label": "热量流量",
+                  "color": "#607d8b",
+                  "settings": {
+                    "excludeFromStacking": false,
+                    "hideDataByDefault": false,
+                    "disableDataHiding": false,
+                    "removeFromLegend": false,
+                    "showLines": true,
+                    "fillLines": false,
+                    "showPoints": false,
+                    "showPointShape": "circle",
+                    "pointShapeFormatter": "var size = radius * Math.sqrt(Math.PI) / 2;\nctx.moveTo(x - size, y - size);\nctx.lineTo(x + size, y + size);\nctx.moveTo(x - size, y + size);\nctx.lineTo(x + size, y - size);",
+                    "showPointsLineWidth": 5,
+                    "showPointsRadius": 3,
+                    "showSeparateAxis": false,
+                    "axisPosition": "left",
+                    "comparisonSettings": {
+                      "showValuesForComparison": true
+                    }
+                  },
+                  "_hash": 0.8308963003900871,
+                  "units": "",
+                  "decimals": 2
+                }
+              ],
+              "entityAliasId": "e4015571-a5de-746b-3c7c-18d25629926a"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "interval": 10000,
+              "timewindowMs": 3600000
+            },
+            "aggregation": {
+              "type": "AVG",
+              "limit": 25000
+            }
+          },
+          "showTitle": true,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "shadowSize": 4,
+            "fontColor": "#545454",
+            "fontSize": 10,
+            "xaxis": {
+              "showLabels": true,
+              "color": "#545454"
+            },
+            "yaxis": {
+              "showLabels": true,
+              "color": "#545454"
+            },
+            "grid": {
+              "color": "#545454",
+              "tickColor": "#DDDDDD",
+              "verticalLines": true,
+              "horizontalLines": true,
+              "outlineWidth": 1
+            },
+            "stack": false,
+            "tooltipIndividual": false,
+            "timeForComparison": "months",
+            "xaxisSecond": {
+              "axisPosition": "top",
+              "showLabels": true
+            },
+            "smoothLines": true
+          },
+          "title": "热量流量---历史数据曲线",
+          "dropShadow": true,
+          "enableFullscreen": true,
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "mobileHeight": null,
+          "showTitleIcon": false,
+          "titleIcon": null,
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "widgetStyle": {},
+          "decimals": 2,
+          "useDashboardTimewindow": false,
+          "displayTimewindow": true,
+          "showLegend": true,
+          "legendConfig": {
+            "direction": "row",
+            "position": "bottom",
+            "showMin": false,
+            "showMax": false,
+            "showAvg": false,
+            "showTotal": false
+          },
+          "actions": {}
+        },
+        "id": "dd350e0e-abca-5dc9-58d8-9c041c0eea1f"
+      }
+    },
+    "states": {
+      "default": {
+        "name": "湿蒸汽测量装置仪表盘",
+        "root": true,
+        "layouts": {
+          "main": {
+            "widgets": {
+              "37d10c7f-460a-3976-190d-19fc000da2f3": {
+                "sizeX": 24,
+                "sizeY": 7,
+                "row": 0,
+                "col": 0
+              },
+              "08907e80-7c1f-ec9d-78af-e51403b35a8f": {
+                "sizeX": 24,
+                "sizeY": 8,
+                "row": 7,
+                "col": 0
+              }
+            },
+            "gridSettings": {
+              "backgroundColor": "#eeeeee",
+              "color": "rgba(0,0,0,0.870588)",
+              "columns": 24,
+              "margins": [
+                10,
+                10
+              ],
+              "backgroundSizeMode": "100%"
+            }
+          }
+        }
+      },
+      "measure_detail": {
+        "name": "${entityName}: 明细",
+        "root": false,
+        "layouts": {
+          "main": {
+            "widgets": {
+              "a0c8c69a-59a5-3f1e-0d18-954bc81d8b91": {
+                "sizeX": 19,
+                "sizeY": 6,
+                "mobileHeight": null,
+                "row": 0,
+                "col": 1
+              },
+              "f7911975-c5a2-043d-8659-4373ffb628a3": {
+                "sizeX": 19,
+                "sizeY": 6,
+                "mobileHeight": null,
+                "row": 6,
+                "col": 1
+              },
+              "ec731749-afed-7883-df0d-fc208d8f5c27": {
+                "sizeX": 19,
+                "sizeY": 6,
+                "mobileHeight": null,
+                "row": 12,
+                "col": 1
+              },
+              "56d9cb72-d21a-9e17-6163-5511be371e81": {
+                "sizeX": 19,
+                "sizeY": 6,
+                "mobileHeight": null,
+                "row": 18,
+                "col": 1
+              },
+              "dd350e0e-abca-5dc9-58d8-9c041c0eea1f": {
+                "sizeX": 19,
+                "sizeY": 6,
+                "mobileHeight": null,
+                "row": 24,
+                "col": 1
+              }
+            },
+            "gridSettings": {
+              "backgroundColor": "#eeeeee",
+              "color": "rgba(0,0,0,0.870588)",
+              "columns": 24,
+              "margins": [
+                10,
+                10
+              ],
+              "backgroundSizeMode": "100%"
+            }
+          }
+        }
+      },
+      "attribute": {
+        "name": "${entityName}:参数修改",
+        "root": false,
+        "layouts": {
+          "main": {
+            "widgets": {
+              "e71d656c-423a-bc82-5d86-c7d5d61fdef7": {
+                "sizeX": 6,
+                "sizeY": 3,
+                "row": 0,
+                "col": 0
+              },
+              "18b3e1b9-47a7-3853-9b4e-886e63c0e8fa": {
+                "sizeX": 6,
+                "sizeY": 3,
+                "row": 0,
+                "col": 6
+              },
+              "77fcdde7-b856-2d8c-a62d-d398b06235af": {
+                "sizeX": 6,
+                "sizeY": 3,
+                "row": 0,
+                "col": 12
+              },
+              "78ed136a-6673-f174-2cb8-19642cb38c7c": {
+                "sizeX": 6,
+                "sizeY": 3,
+                "row": 3,
+                "col": 0
+              },
+              "8d9e4c15-f1d6-013a-d0cd-2c094ff73e5f": {
+                "sizeX": 6,
+                "sizeY": 3,
+                "row": 0,
+                "col": 18
+              },
+              "def85aaa-c3cb-8de1-aeb9-594b1636af7c": {
+                "sizeX": 6,
+                "sizeY": 3,
+                "row": 3,
+                "col": 6
+              },
+              "3f403315-f90d-f5d7-9da7-11d845fbf477": {
+                "sizeX": 6,
+                "sizeY": 3,
+                "row": 3,
+                "col": 12
+              },
+              "f8f1e881-00a7-5c6f-e12d-94a4638cbc85": {
+                "sizeX": 6,
+                "sizeY": 3,
+                "row": 3,
+                "col": 18
+              },
+              "8f60207d-780f-8087-37be-dc2ebc345f30": {
+                "sizeX": 6,
+                "sizeY": 3,
+                "row": 6,
+                "col": 0
+              },
+              "ddf95109-daab-7fd6-5c7a-a753b3e4a1c7": {
+                "sizeX": 6,
+                "sizeY": 3,
+                "row": 9,
+                "col": 0
+              },
+              "b574bd35-1cd6-4248-b758-974e6e6406ec": {
+                "sizeX": 6,
+                "sizeY": 3,
+                "row": 12,
+                "col": 0
+              },
+              "e7d5abdb-7e9d-94d7-e60c-410b40859a53": {
+                "sizeX": 6,
+                "sizeY": 3,
+                "row": 12,
+                "col": 6
+              },
+              "03429051-8981-0934-039c-db85a1bbf1e7": {
+                "sizeX": 6,
+                "sizeY": 3,
+                "row": 12,
+                "col": 12
+              },
+              "8670fc00-1833-d33a-b250-49a5ba8ec814": {
+                "sizeX": 6,
+                "sizeY": 3,
+                "row": 9,
+                "col": 6
+              },
+              "11891a82-001c-f683-bb49-163d1d020e26": {
+                "sizeX": 6,
+                "sizeY": 3,
+                "row": 9,
+                "col": 18
+              },
+              "13a9110e-658e-db6a-0f16-cc674d4027fc": {
+                "sizeX": 6,
+                "sizeY": 3,
+                "row": 9,
+                "col": 12
+              },
+              "1ade88f1-e1c8-737c-2f4e-d693bfc851a5": {
+                "sizeX": 6,
+                "sizeY": 3,
+                "row": 6,
+                "col": 6
+              }
+            },
+            "gridSettings": {
+              "backgroundColor": "#eeeeee",
+              "color": "rgba(0,0,0,0.870588)",
+              "columns": 24,
+              "margins": [
+                10,
+                10
+              ],
+              "backgroundSizeMode": "100%"
+            }
+          }
+        }
+      }
+    },
+    "entityAliases": {
+      "51715b6d-970d-28dd-8f75-5207abb6cad6": {
+        "id": "51715b6d-970d-28dd-8f75-5207abb6cad6",
+        "alias": "guolu-entitiy",
+        "filter": {
+          "type": "deviceSearchQuery",
+          "resolveMultiple": true,
+          "rootStateEntity": false,
+          "stateEntityParamName": null,
+          "defaultStateEntity": null,
+          "rootEntity": {
+            "entityType": "ASSET",
+            "id": "a3fff0e0-56cf-11ea-9eca-97bfcfb9f3d0"
+          },
+          "direction": "FROM",
+          "maxLevel": 1,
+          "relationType": "Contains",
+          "deviceTypes": [
+            "pipe"
+          ]
+        }
+      },
+      "e4015571-a5de-746b-3c7c-18d25629926a": {
+        "id": "e4015571-a5de-746b-3c7c-18d25629926a",
+        "alias": "detail",
+        "filter": {
+          "type": "stateEntity",
+          "resolveMultiple": false,
+          "stateEntityParamName": null,
+          "defaultStateEntity": null
+        }
+      },
+      "2c54a354-34bb-db71-12cb-a7476fe0e5e8": {
+        "id": "2c54a354-34bb-db71-12cb-a7476fe0e5e8",
+        "alias": "series main data",
+        "filter": {
+          "type": "deviceType",
+          "resolveMultiple": true,
+          "deviceType": "pipe",
+          "deviceNameFilter": ""
+        }
+      },
+      "f35403f3-b906-77ab-551e-368a657171c3": {
+        "id": "f35403f3-b906-77ab-551e-368a657171c3",
+        "alias": "asset",
+        "filter": {
+          "type": "singleEntity",
+          "resolveMultiple": false,
+          "singleEntity": {
+            "entityType": "ASSET",
+            "id": "a3fff0e0-56cf-11ea-9eca-97bfcfb9f3d0"
+          }
+        }
+      },
+      "a3c2c660-f96b-5426-6453-cd3dd9494809": {
+        "id": "a3c2c660-f96b-5426-6453-cd3dd9494809",
+        "alias": "InNewWidget",
+        "filter": {
+          "type": "stateEntity",
+          "resolveMultiple": false,
+          "stateEntityParamName": "inNewWidget",
+          "defaultStateEntity": null
+        }
+      }
+    },
+    "timewindow": {
+      "realtime": {
+        "interval": 15000,
+        "timewindowMs": 300000
+      },
+      "aggregation": {
+        "type": "AVG",
+        "limit": 25000
+      },
+      "hideInterval": false,
+      "hideAggregation": false,
+      "hideAggInterval": false
+    },
+    "settings": {
+      "stateControllerId": "entity",
+      "showTitle": false,
+      "showDashboardsSelect": true,
+      "showEntitiesSelect": true,
+      "showDashboardTimewindow": true,
+      "showDashboardExport": true,
+      "toolbarAlwaysOpen": true
+    }
+  },
+  "name": "湿蒸汽测量装置仪表盘"
+}

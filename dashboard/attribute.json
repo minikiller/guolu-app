@@ -1,0 +1,847 @@
+{
+  "title": "设备参数仪表板",
+  "configuration": {
+    "widgets": {
+      "1ccde394-65a6-07ab-4272-6aea860b28ff": {
+        "isSystemType": true,
+        "bundleAlias": "cards",
+        "typeAlias": "entities_hierarchy",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 6,
+        "sizeY": 4,
+        "config": {
+          "timewindow": {
+            "realtime": {
+              "interval": 1000,
+              "timewindowMs": 86400000
+            },
+            "aggregation": {
+              "type": "NONE",
+              "limit": 200
+            }
+          },
+          "showTitle": false,
+          "backgroundColor": "rgb(255, 255, 255)",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "4px",
+          "settings": {
+            "nodeRelationQueryFunction": "/**\n\n// Function should return relations query object for current node used to fetch entity children.\n// Function can return 'default' string value. In this case default relations query will be used.\n\n// The following example code will construct simple relations query that will fetch relations of type 'Contains'\n// from the current entity.\n\nvar entity = nodeCtx.entity;\nvar query = {\n    parameters: {\n        rootId: entity.id.id,\n        rootType: entity.id.entityType,\n        direction: types.entitySearchDirection.from,\n        relationTypeGroup: \"COMMON\",\n        maxLevel: 1\n    },\n    filters: [{\n        relationType: \"Contains\",\n        entityTypes: []\n    }]\n};\nreturn query;\n\n**/\n",
+            "nodeHasChildrenFunction": "/**\n\n// Function should return boolean value indicating whether current node has children (whether it can be expanded).\n\n// The following example code will restrict entities hierarchy expansion up to third level.\n\nreturn nodeCtx.level <= 2;\n\n// The next example code will restrict entities expansion according to the value of example 'nodeHasChildren' attribute.\n\nvar data = nodeCtx.data;\nif (data.hasOwnProperty('nodeHasChildren') && data['nodeHasChildren'] !== null) {\n    return data['nodeHasChildren'] === 'true';\n} else {\n    return true;\n}\n  \n**/\n ",
+            "nodeTextFunction": "/**\n\n// Function should return text (can be HTML code) for the current node.\n\n// The following example code will generate node text consisting of entity name and temperature if temperature value is present in entity attributes/timeseries.\n\nvar data =  nodeCtx.data;\nvar entity = nodeCtx.entity;\nvar text = entity.name;\nif (data.hasOwnProperty('temperature') && data['temperature'] !== null) {\n    text += \" <b>\"+ data['temperature'] +\" °C</b>\";\n}\nreturn text;\n\n**/",
+            "nodeIconFunction": "/** \n\n// Function should return node icon info object.\n// Resulting object should contain either 'materialIcon' or 'iconUrl' property. \n// Where:\n    - 'materialIcon' - name of the material icon to be used from the Material Icons Library (https://material.io/tools/icons);\n    - 'iconUrl' - url of the external image to be used as node icon.\n// Function can return 'default' string value. In this case default icons according to entity type will be used.\n\n// The following example code shows how to use external image for devices which name starts with 'Test' and use \n// default icons for the rest of entities.\n\nvar entity = nodeCtx.entity;\nif (entity.id.entityType === 'DEVICE' && entity.name.startsWith('Test')) {\n    return {iconUrl: 'https://avatars1.githubusercontent.com/u/14793288?v=4&s=117'};\n} else {\n    return 'default';\n}\n \n**/",
+            "nodeDisabledFunction": "/**\n\n// Function should return boolean value indicating whether current node should be disabled (not selectable).\n\n// The following example code will disable current node according to the value of example 'nodeDisabled' attribute.\n\nvar data = nodeCtx.data;\nif (data.hasOwnProperty('nodeDisabled') && data['nodeDisabled'] !== null) {\n    return data['nodeDisabled'] === 'true';\n} else {\n    return false;\n}\n  \n**/\n",
+            "nodesSortFunction": "/**\n\n// This function is used to sort nodes of the same level. Function should compare two nodes and return \n// integer value: \n//     - less than 0 - sort nodeCtx1 to an index lower than nodeCtx2\n//     - 0 - leave nodeCtx1 and nodeCtx2 unchanged with respect to each other\n//     - greater than 0 - sort nodeCtx2 to an index lower than nodeCtx1\n\n// The following example code will sort entities first by entity type in alphabetical order then\n// by entity name in alphabetical order.\n\nvar result = nodeCtx1.entity.id.entityType.localeCompare(nodeCtx2.entity.id.entityType);\nif (result === 0) {\n    result = nodeCtx1.entity.name.localeCompare(nodeCtx2.entity.name);\n}\nreturn result;\n  \n**/",
+            "nodeOpenedFunction": "/**\n\n// Function should return boolean value indicating whether current node should be opened (expanded) when it first loaded.\n\n// The following example code will open by default nodes up to third level.\n\n\n\n**/\nreturn nodeCtx.level <= 2;\n "
+          },
+          "title": "New Entities hierarchy",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400,
+            "padding": "5px 10px 5px 10px"
+          },
+          "useDashboardTimewindow": false,
+          "showLegend": false,
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [],
+              "entityAliasId": "61c1325f-b9dd-6df2-6a6a-19a72deb6a71"
+            }
+          ],
+          "widgetStyle": {},
+          "actions": {
+            "nodeSelected": [
+              {
+                "id": "3cd72fe4-75c7-d3ec-baed-31c172521bed",
+                "name": "node_select",
+                "icon": "more_horiz",
+                "type": "updateDashboardState",
+                "targetDashboardStateId": null,
+                "setEntityId": true,
+                "stateEntityParamName": "inNewWidget"
+              }
+            ]
+          },
+          "showTitleIcon": false,
+          "titleIcon": null,
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "displayTimewindow": true,
+          "legendConfig": {
+            "direction": "column",
+            "position": "bottom",
+            "showMin": false,
+            "showMax": false,
+            "showAvg": true,
+            "showTotal": false
+          }
+        },
+        "id": "1ccde394-65a6-07ab-4272-6aea860b28ff"
+      },
+      "7f3a4a54-ecb2-eb44-62d2-336dbb312dd4": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_shared_double_attribute",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 6,
+        "sizeY": 2,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "P_Range",
+                  "type": "attribute",
+                  "label": "P_Range",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.49954267790929574,
+                  "postFuncBody": "return value?value:\"-\";"
+                }
+              ],
+              "entityAliasId": "68f2c509-fa82-e6dd-dcb3-5a0297c73f5e"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": false,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "showResultMessage": true,
+            "showLabel": true,
+            "widgetTitle": "压力量程(Mpa)",
+            "labelValue": "压力量程(Mpa)"
+          },
+          "title": "压力量程(Mpa)",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "showTitleIcon": true,
+          "titleIcon": "list",
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "displayTimewindow": true
+        },
+        "id": "7f3a4a54-ecb2-eb44-62d2-336dbb312dd4"
+      },
+      "5babb13d-635f-3b30-0bef-ade755e2726b": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_shared_double_attribute",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 6,
+        "sizeY": 2,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "T_Range",
+                  "type": "attribute",
+                  "label": "T_Range",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.6215976452605556
+                }
+              ],
+              "entityAliasId": "68f2c509-fa82-e6dd-dcb3-5a0297c73f5e"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": false,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "showResultMessage": true,
+            "showLabel": true,
+            "labelValue": "温度量程(℃)",
+            "minValue": 0,
+            "maxValue": 500,
+            "widgetTitle": "温度量程(℃)"
+          },
+          "title": "",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "showTitleIcon": false,
+          "titleIcon": "list",
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "displayTimewindow": true
+        },
+        "id": "5babb13d-635f-3b30-0bef-ade755e2726b"
+      },
+      "8306bc9e-98f9-d5b8-18a9-bd6801b6d887": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_shared_double_attribute",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 6,
+        "sizeY": 2,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "KP_Range",
+                  "type": "attribute",
+                  "label": "KP_Range",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.23782914473699646
+                }
+              ],
+              "entityAliasId": "68f2c509-fa82-e6dd-dcb3-5a0297c73f5e"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": false,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "showResultMessage": true,
+            "showLabel": true,
+            "minValue": 0,
+            "maxValue": 500,
+            "labelValue": "孔板差压量程(Kpa)"
+          },
+          "title": "孔板差压量程(Kpa)",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "showTitleIcon": false,
+          "titleIcon": "list",
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "displayTimewindow": true
+        },
+        "id": "8306bc9e-98f9-d5b8-18a9-bd6801b6d887"
+      },
+      "33bb7f65-61e4-99be-ec9c-0e81936d7145": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_shared_double_attribute",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 6,
+        "sizeY": 2,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "WP_Range",
+                  "type": "attribute",
+                  "label": "WP_Range",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.37379417172538676
+                }
+              ],
+              "entityAliasId": "68f2c509-fa82-e6dd-dcb3-5a0297c73f5e"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": false,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "showResultMessage": true,
+            "showLabel": true,
+            "minValue": 0,
+            "maxValue": 500,
+            "labelValue": "文管差压量程(Kpa)"
+          },
+          "title": "文管差压量程(Kpa)",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "showTitleIcon": false,
+          "titleIcon": "list",
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "displayTimewindow": true
+        },
+        "id": "33bb7f65-61e4-99be-ec9c-0e81936d7145"
+      },
+      "28985bd1-818c-0705-4d9b-5124d5928a6f": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_shared_double_attribute",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 6,
+        "sizeY": 2,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "In_Dia",
+                  "type": "attribute",
+                  "label": "In_Dia",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.9064691220666661
+                }
+              ],
+              "entityAliasId": "68f2c509-fa82-e6dd-dcb3-5a0297c73f5e"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": false,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "showResultMessage": true,
+            "showLabel": true,
+            "labelValue": "管道内径(mm)"
+          },
+          "title": "管道内径(mm)",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "showTitleIcon": false,
+          "titleIcon": "list",
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "displayTimewindow": true
+        },
+        "id": "28985bd1-818c-0705-4d9b-5124d5928a6f"
+      },
+      "b6c3c312-0738-09ba-a5c0-4c9d86244fb3": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_shared_double_attribute",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 6,
+        "sizeY": 2,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "a_Kb",
+                  "type": "attribute",
+                  "label": "a_Kb",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.3697190798051282
+                }
+              ],
+              "entityAliasId": "68f2c509-fa82-e6dd-dcb3-5a0297c73f5e"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": false,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "showResultMessage": true,
+            "showLabel": true,
+            "minValue": 0.5,
+            "maxValue": 1,
+            "labelValue": "孔板系数(无量纲)"
+          },
+          "title": "孔板系数(无量纲)",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "showTitleIcon": false,
+          "titleIcon": "list",
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "displayTimewindow": true
+        },
+        "id": "b6c3c312-0738-09ba-a5c0-4c9d86244fb3"
+      },
+      "102ae5bf-ea65-a226-fb8d-c84e6c71ebe2": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_shared_double_attribute",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 6,
+        "sizeY": 2,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "a_Wg",
+                  "type": "attribute",
+                  "label": "a_Wg",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.23861058803697155
+                }
+              ],
+              "entityAliasId": "68f2c509-fa82-e6dd-dcb3-5a0297c73f5e"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": false,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "showResultMessage": true,
+            "showLabel": true,
+            "minValue": 0.5,
+            "maxValue": 1.5,
+            "labelValue": "文管系数(无量纲)"
+          },
+          "title": "文管系数(无量纲)",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "showTitleIcon": false,
+          "titleIcon": "list",
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "displayTimewindow": true
+        },
+        "id": "102ae5bf-ea65-a226-fb8d-c84e6c71ebe2"
+      },
+      "a84dac22-748f-d515-6933-b59295793e63": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_shared_double_attribute",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 6,
+        "sizeY": 2,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "d_Kb",
+                  "type": "attribute",
+                  "label": "d_Kb",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.36674776719221724
+                }
+              ],
+              "entityAliasId": "68f2c509-fa82-e6dd-dcb3-5a0297c73f5e"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": false,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "showResultMessage": true,
+            "showLabel": true,
+            "labelValue": "孔板喉径(mm)"
+          },
+          "title": "孔板喉径(mm)",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "showTitleIcon": false,
+          "titleIcon": "list",
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "displayTimewindow": true
+        },
+        "id": "a84dac22-748f-d515-6933-b59295793e63"
+      },
+      "92929da4-f119-e8b9-311a-cfd3822d886d": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_shared_double_attribute",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 6,
+        "sizeY": 2,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "d_Wg",
+                  "type": "attribute",
+                  "label": "d_Wg",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.28248969077801145
+                }
+              ],
+              "entityAliasId": "68f2c509-fa82-e6dd-dcb3-5a0297c73f5e"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": false,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "showResultMessage": true,
+            "showLabel": true,
+            "labelValue": "文管喉径"
+          },
+          "title": "文管喉径",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "showTitleIcon": false,
+          "titleIcon": "list",
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "displayTimewindow": true
+        },
+        "id": "92929da4-f119-e8b9-311a-cfd3822d886d"
+      },
+      "80e4a769-bb96-c2c2-b4f4-373a09da088b": {
+        "isSystemType": true,
+        "bundleAlias": "input_widgets",
+        "typeAlias": "update_shared_string_attribute",
+        "type": "latest",
+        "title": "New widget",
+        "sizeX": 6,
+        "sizeY": 2,
+        "config": {
+          "datasources": [
+            {
+              "type": "entity",
+              "dataKeys": [
+                {
+                  "name": "No_Pipe",
+                  "type": "attribute",
+                  "label": "No_Pipe",
+                  "color": "#2196f3",
+                  "settings": {},
+                  "_hash": 0.9629550922771455
+                }
+              ],
+              "entityAliasId": "68f2c509-fa82-e6dd-dcb3-5a0297c73f5e"
+            }
+          ],
+          "timewindow": {
+            "realtime": {
+              "timewindowMs": 60000
+            }
+          },
+          "showTitle": false,
+          "backgroundColor": "#fff",
+          "color": "rgba(0, 0, 0, 0.87)",
+          "padding": "8px",
+          "settings": {
+            "showResultMessage": true,
+            "showLabel": true,
+            "labelValue": "安装位置"
+          },
+          "title": "安装位置",
+          "dropShadow": true,
+          "enableFullscreen": false,
+          "enableDataExport": false,
+          "widgetStyle": {},
+          "titleStyle": {
+            "fontSize": "16px",
+            "fontWeight": 400
+          },
+          "useDashboardTimewindow": true,
+          "showLegend": false,
+          "actions": {},
+          "showTitleIcon": false,
+          "titleIcon": "list",
+          "iconColor": "rgba(0, 0, 0, 0.87)",
+          "iconSize": "24px",
+          "titleTooltip": "",
+          "displayTimewindow": true
+        },
+        "id": "80e4a769-bb96-c2c2-b4f4-373a09da088b"
+      }
+    },
+    "states": {
+      "default": {
+        "name": "设备参数仪表板",
+        "root": true,
+        "layouts": {
+          "main": {
+            "widgets": {
+              "1ccde394-65a6-07ab-4272-6aea860b28ff": {
+                "sizeX": 6,
+                "sizeY": 4,
+                "row": 0,
+                "col": 0
+              },
+              "7f3a4a54-ecb2-eb44-62d2-336dbb312dd4": {
+                "sizeX": 6,
+                "sizeY": 2,
+                "row": 0,
+                "col": 6
+              },
+              "5babb13d-635f-3b30-0bef-ade755e2726b": {
+                "sizeX": 6,
+                "sizeY": 2,
+                "row": 0,
+                "col": 12
+              },
+              "8306bc9e-98f9-d5b8-18a9-bd6801b6d887": {
+                "sizeX": 6,
+                "sizeY": 2,
+                "row": 0,
+                "col": 18
+              },
+              "33bb7f65-61e4-99be-ec9c-0e81936d7145": {
+                "sizeX": 6,
+                "sizeY": 2,
+                "row": 2,
+                "col": 6
+              },
+              "28985bd1-818c-0705-4d9b-5124d5928a6f": {
+                "sizeX": 6,
+                "sizeY": 2,
+                "row": 2,
+                "col": 12
+              },
+              "b6c3c312-0738-09ba-a5c0-4c9d86244fb3": {
+                "sizeX": 6,
+                "sizeY": 2,
+                "row": 2,
+                "col": 18
+              },
+              "102ae5bf-ea65-a226-fb8d-c84e6c71ebe2": {
+                "sizeX": 6,
+                "sizeY": 2,
+                "row": 4,
+                "col": 6
+              },
+              "a84dac22-748f-d515-6933-b59295793e63": {
+                "sizeX": 6,
+                "sizeY": 2,
+                "row": 4,
+                "col": 12
+              },
+              "92929da4-f119-e8b9-311a-cfd3822d886d": {
+                "sizeX": 6,
+                "sizeY": 2,
+                "row": 4,
+                "col": 18
+              },
+              "80e4a769-bb96-c2c2-b4f4-373a09da088b": {
+                "sizeX": 6,
+                "sizeY": 2,
+                "row": 6,
+                "col": 6
+              }
+            },
+            "gridSettings": {
+              "backgroundColor": "#eeeeee",
+              "color": "rgba(0,0,0,0.870588)",
+              "columns": 24,
+              "margins": [
+                10,
+                10
+              ],
+              "backgroundSizeMode": "100%"
+            }
+          }
+        }
+      }
+    },
+    "entityAliases": {
+      "61c1325f-b9dd-6df2-6a6a-19a72deb6a71": {
+        "id": "61c1325f-b9dd-6df2-6a6a-19a72deb6a71",
+        "alias": "asset",
+        "filter": {
+          "type": "singleEntity",
+          "resolveMultiple": false,
+          "singleEntity": {
+            "entityType": "ASSET",
+            "id": "a3fff0e0-56cf-11ea-9eca-97bfcfb9f3d0"
+          }
+        }
+      },
+      "68f2c509-fa82-e6dd-dcb3-5a0297c73f5e": {
+        "id": "68f2c509-fa82-e6dd-dcb3-5a0297c73f5e",
+        "alias": "InNewWidget",
+        "filter": {
+          "type": "stateEntity",
+          "resolveMultiple": false,
+          "stateEntityParamName": "inNewWidget",
+          "defaultStateEntity": null
+        }
+      },
+      "c5ca5884-095a-946e-4da1-6ec7b70d16a8": {
+        "id": "c5ca5884-095a-946e-4da1-6ec7b70d16a8",
+        "alias": "detail",
+        "filter": {
+          "type": "stateEntity",
+          "resolveMultiple": false,
+          "stateEntityParamName": null,
+          "defaultStateEntity": null
+        }
+      }
+    },
+    "timewindow": {
+      "displayValue": "",
+      "selectedTab": 0,
+      "hideInterval": false,
+      "hideAggregation": false,
+      "hideAggInterval": false,
+      "realtime": {
+        "interval": 1000,
+        "timewindowMs": 60000
+      },
+      "history": {
+        "historyType": 0,
+        "interval": 1000,
+        "timewindowMs": 60000,
+        "fixedTimewindow": {
+          "startTimeMs": 1582862383196,
+          "endTimeMs": 1582948783196
+        }
+      },
+      "aggregation": {
+        "type": "AVG",
+        "limit": 25000
+      }
+    },
+    "settings": {
+      "stateControllerId": "entity",
+      "showTitle": false,
+      "showDashboardsSelect": true,
+      "showEntitiesSelect": true,
+      "showDashboardTimewindow": true,
+      "showDashboardExport": true,
+      "toolbarAlwaysOpen": true
+    }
+  },
+  "name": "设备参数仪表板"
+}
